@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiros de Conteúdo — Vesti Maio 2026</title>
+<style>
+  :root {
+    --purple: #6A52B3;
+    --purple-dark: #4A467A;
+    --purple-light: #f0edf9;
+    --purple-mid: #e0d9f5;
+    --green: #549E86;
+    --green-light: #63C19B;
+    --green-bg: #eaf5f0;
+    --text: #1a1820;
+    --text-secondary: #5a5670;
+    --text-tertiary: #9590a8;
+    --border: rgba(106,82,179,0.12);
+    --border-strong: rgba(106,82,179,0.22);
+    --bg: #faf9fc;
+    --surface: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --amber-bg: #FAEEDA;
+    --amber-text: #633806;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR NAV */
+  .nav {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--purple-dark);
+    padding: 28px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 20px 24px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    margin-bottom: 16px;
+  }
+
+  .brand-dot {
+    width: 30px; height: 30px;
+    background: var(--green-light);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+
+  .brand-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .brand-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+
+  .nav-week-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    padding: 0 20px;
+    margin: 16px 0 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: background 0.12s;
+    text-decoration: none;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.06); }
+  .nav-item.active { background: rgba(99,193,155,0.15); }
+
+  .nav-num {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .nav-title {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.35;
+  }
+
+  .nav-badges {
+    display: flex;
+    gap: 3px;
+    margin-top: 3px;
+  }
+
+  .nav-badge {
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 860px;
+    overflow-y: auto;
+  }
+
+  .main-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .main-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+  }
+
+  .main-header p { font-size: 14px; color: var(--text-tertiary); }
+
+  /* POST SECTION */
+  .post-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 32px;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-header-num {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .post-header-info { flex: 1; }
+
+  .post-week-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+
+  .post-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .meta-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 5px;
+  }
+
+  /* BLOCKS */
+  .block { margin-bottom: 20px; }
+
+  .block-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .block-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* ARTE ESTÁTICA */
+  .arte-box {
+    background: var(--purple-light);
+    border: 1px solid var(--purple-mid);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+
+  .arte-frase {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--purple-dark);
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* SLIDES */
+  .slides { display: flex; flex-direction: column; gap: 8px; }
+
+  .slide {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .slide-num {
+    width: 24px; height: 24px;
+    background: var(--purple-light);
+    color: var(--purple-dark);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .slide-num.cta { background: var(--green-bg); color: #085041; }
+
+  .slide-content {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  .slide-content strong { color: var(--purple-dark); }
+
+  /* LEGENDA */
+  .legenda-box {
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  /* NOTE */
+  .note {
+    background: var(--amber-bg);
+    border-left: 3px solid #EF9F27;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--amber-text);
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  /* WEEK DIVIDER */
+  .week-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 24px;
+  }
+
+  .week-divider-tag {
+    background: var(--purple-dark);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  .week-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @media (max-width: 900px) {
+    body { flex-direction: column; }
+    .nav { width: 100%; height: auto; position: static; padding: 20px 0; }
+    .main { padding: 24px 20px; max-width: 100%; }
+  }
+
+  @media print {
+    .nav { display: none; }
+    .main { padding: 20px; }
+    .post-section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="brand-dot">Ve</div>
+    <div>
+      <div class="brand-name">Vesti</div>
+      <div class="brand-sub">Roteiros · Abr–Mai 2026</div>
+    </div>
+  </div>
+
+  <div class="nav-week-label">Sem. 27–30.04</div>
+  <a class="nav-item" href="#post1">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">1</div>
+    <div><div class="nav-title">Ciclo de vida do cliente</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#E6F1FB;color:#0C447C">Educação</span></div></div>
+  </a>
+  <a class="nav-item" href="#post2">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">2</div>
+    <div><div class="nav-title">60 dias sem comprar</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#F1EFE8;color:#444441">Dor</span></div></div>
+  </a>
+
+  <div class="nav-week-label">Sem. 04–08.05</div>
+  <a class="nav-item" href="#post3">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">3</div>
+    <div><div class="nav-title">Catálogo PDF</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#F1EFE8;color:#444441">Dor</span></div></div>
+  </a>
+  <a class="nav-item" href="#post4">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">4</div>
+    <div><div class="nav-title">Do PDF ao catálogo digital</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#FAEEDA;color:#633806">Produto</span></div></div>
+  </a>
+  <a class="nav-item" href="#post5">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">5</div>
+    <div><div class="nav-title">Clientes campeões</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#FAEEDA;color:#633806">Dica prática</span></div></div>
+  </a>
+
+  <div class="nav-week-label">Sem. 11–15.05</div>
+  <a class="nav-item" href="#post6">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">6</div>
+    <div><div class="nav-title">3 perguntas para qualificar</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#FAEEDA;color:#633806">Dica prática</span></div></div>
+  </a>
+  <a class="nav-item" href="#post7">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">7</div>
+    <div><div class="nav-title">Oráculo e o WhatsApp</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Produto</span></div></div>
+  </a>
+  <a class="nav-item" href="#post8">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">8</div>
+    <div><div class="nav-title">Não envie promoções</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#FAEEDA;color:#633806">Dica prática</span></div></div>
+  </a>
+  <a class="nav-item" href="#post9">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">9</div>
+    <div><div class="nav-title">Recuperar x atrair</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#E6F1FB;color:#0C447C">Educação</span></div></div>
+  </a>
+
+  <div class="nav-week-label">Sem. 18–22.05</div>
+  <a class="nav-item" href="#post10">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">10</div>
+    <div><div class="nav-title">Organizar catálogo</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#E6F1FB;color:#0C447C">Educação</span></div></div>
+  </a>
+  <a class="nav-item" href="#post11">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">11</div>
+    <div><div class="nav-title">Vender para o Brasil</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Produto</span></div></div>
+  </a>
+
+  <div class="nav-week-label">Sem. 25–29.05</div>
+  <a class="nav-item" href="#post12">
+    <div class="nav-num" style="background:#E1F5EE;color:#085041">12</div>
+    <div><div class="nav-title">Case: 4h de atendimento</div><div class="nav-badges"><span class="nav-badge" style="background:#E1F5EE;color:#085041">Oráculo</span><span class="nav-badge" style="background:#FCEBEB;color:#A32D2D">Prova</span></div></div>
+  </a>
+  <a class="nav-item" href="#post13">
+    <div class="nav-num" style="background:#EEEDFE;color:#3C3489">13</div>
+    <div><div class="nav-title">Teste: sua marca é digital?</div><div class="nav-badges"><span class="nav-badge" style="background:#EEEDFE;color:#3C3489">Plataforma</span><span class="nav-badge" style="background:#E1F5EE;color:#085041">Conversão</span></div></div>
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="main-header">
+    <h1>Roteiros de Conteúdo</h1>
+    <p>Vesti · Abril–Maio 2026 · 13 posts · Instagram</p>
+  </div>
+
+  <!-- SEMANA 1 -->
+  <div class="week-divider"><span class="week-divider-tag">Semana 1 · 27 a 30.04</span><div class="week-divider-line"></div></div>
+
+  <!-- POST 1 -->
+  <div class="post-section" id="post1">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">1</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 1 · Oráculo</div>
+        <h2>O que é o ciclo de vida do cliente no atacado de moda… e por que ignorar isso custa caro?</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#E6F1FB;color:#0C447C">Educação</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+O cliente que comprava todo mês
+sumiu.
+E você nem sabe por quê.</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">Todo cliente tem um ciclo.
+Ele chega, compra, esfria — e vai embora.
+O problema não é o ciclo.
+É não saber em qual etapa cada um está.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content">No atacado de moda, existem 4 momentos:
+
+🟢 <strong>Novo</strong> — acabou de entrar na sua carteira
+🔵 <strong>Ativo</strong> — compra com frequência
+🟡 <strong>Esfriando</strong> — o intervalo entre compras aumentou
+🔴 <strong>Inativo</strong> — sumiu e você não percebeu</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">O erro mais comum:
+tratar os 4 do mesmo jeito.
+
+Manda a mesma mensagem.
+Oferece a mesma promoção.
+E perde venda nos dois extremos.</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">Quem está esfriando precisa de atenção agora.
+Quem está ativo não precisa de desconto —
+ele já ia comprar.
+
+Ação errada no momento errado
+custa dinheiro e relacionamento.</div></div>
+        <div class="slide"><div class="slide-num">6</div><div class="slide-content">Saber em qual etapa cada cliente está
+muda completamente o que você faz a seguir.
+
+É isso que separa quem vende
+de quem só atende.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quer saber em qual etapa
+estão os seus clientes agora?
+
+Acesse o link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Você sabe quantos clientes seus estão esfriando nesse momento — sem que você tenha feito nada?
+
+O ciclo de vida do cliente existe em qualquer negócio. No atacado de moda, ele é ainda mais rápido: a coleção muda, o concorrente aparece, o WhatsApp fica sem resposta.
+
+Quem entende em qual etapa cada cliente está consegue agir no momento certo — com a mensagem certa, para a pessoa certa.
+
+Arrasta o carrossel pra entender como esse ciclo funciona na prática. 👉
+
+#atacadodemoda #confecção #gestãodevendas #whatsappbusiness #modaatacado #crm #vestioficial</div>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="post-section" id="post2">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">2</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 1 · Oráculo</div>
+        <h2>Quantos clientes da sua carteira não compram há mais de 60 dias — e você ainda não percebeu?</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Dor</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Arte estática</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Frase da arte</div>
+      <div class="arte-box">
+        <div class="arte-frase">Alguém da sua carteira<br>não compra há 60 dias.<br>Você sabe quem é?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">A resposta mais comum é: não sei.
+
+E não é por falta de cuidado — é porque sem organização, cliente inativo parece cliente silencioso. Você não perde ele num momento. Você vai perdendo aos poucos, enquanto atende quem está gritando mais alto no WhatsApp.
+
+60 dias sem compra no atacado de moda é sinal de alerta. 90 dias é cliente quase perdido.
+
+Saber quem são essas pessoas — e agir antes que somam de vez — é o que separa uma carteira que cresce de uma que só se mantém.
+
+Quanto da sua receita está dormindo na sua própria lista de contatos?
+
+👉 Link na bio para descobrir como organizar isso.
+
+#atacadodemoda #confecção #clientesinativos #gestãodevendas #modaatacado</div>
+    </div>
+  </div>
+
+  <!-- SEMANA 2 -->
+  <div class="week-divider"><span class="week-divider-tag">Semana 2 · 04 a 08.05</span><div class="week-divider-line"></div></div>
+
+  <!-- POST 3 -->
+  <div class="post-section" id="post3">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">3</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 2 · Plataforma</div>
+        <h2>Sua coleção está linda no catálogo PDF. Mas o cliente abre o arquivo ou ignora?</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Dor</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Arte estática</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Frase da arte</div>
+      <div class="arte-box">
+        <div class="arte-frase">Você mandou o PDF.<br>O cliente viu "arquivo".<br>E não abriu.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Não é falta de interesse. É atrito.
+
+PDF pesado que não abre no celular. Foto pequena que não dá pra ver o detalhe. Preço que não está no arquivo — precisa perguntar. Grade que confunde. Variação que some.
+
+Cada passo a mais que o cliente precisa dar para entender o produto é uma chance a mais de ele fechar o WhatsApp e ir embora.
+
+A coleção pode ser incrível. Mas se a apresentação trava, a venda trava junto.
+
+Quanto você deixou de vender porque o cliente não conseguiu visualizar o produto direito?
+
+👉 Acesse o link na bio e veja como fica diferente.
+
+#atacadodemoda #confecção #catalogodigital #vendasonline #modaatacado #plataformavesti</div>
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="post-section" id="post4">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">4</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 2 · Plataforma</div>
+        <h2>Do PDF ao catálogo digital: o que muda quando o cliente navega sozinho pelos seus produtos</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Produto</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Storytelling antes e depois</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+Antes: PDF, foto no WhatsApp, pergunta pra vendedora.
+Depois: o cliente escolhe, monta o pedido e fecha sozinho.
+O que muda no meio disso?</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">Hoje, o cliente precisa de ajuda para comprar.
+
+Manda mensagem pra pedir preço.
+Pede foto maior.
+Pergunta se tem no P.
+Espera resposta.
+
+Em cada espera, existe uma chance de desistir.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content">Com um catálogo digital, o cliente entra sozinho.
+
+Vê foto e vídeo do produto.
+Confere grade completa.
+Escolhe cor e tamanho.
+Monta o pedido.
+
+Sem precisar falar com ninguém para entender o que está comprando.</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">Para você, o que muda:
+
+✔ Menos tempo explicando produto
+✔ Pedido chegando organizado
+✔ Vendedora livre para vender mais
+✔ Cliente comprando no próprio ritmo</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">Não é um e-commerce complicado.
+É um lugar organizado feito para o atacado de moda —
+onde o cliente navega e você recebe o pedido pronto.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quer ver como ficaria o catálogo da sua marca?
+
+Acesse o link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Quantas vezes sua vendedora explicou o mesmo produto hoje?
+
+Quando o cliente precisa perguntar para comprar, a venda depende 100% do atendimento. Escala zero. Erro sempre possível.
+
+Um catálogo digital não substitui o relacionamento — ele libera sua equipe para o que realmente importa: vender mais, não explicar mais.
+
+Arrasta pra ver o que muda na prática. 👉
+
+#atacadodemoda #catalogodigital #confecção #ecommerceatacado #modaatacado #plataformavesti</div>
+    </div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="post-section" id="post5">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">5</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 2 · Plataforma</div>
+        <h2>Autorizar clientes campeões a comprarem quantidades menores — por que isso aumenta a frequência?</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Dica prática</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Arte estática</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Frase da arte</div>
+      <div class="arte-box">
+        <div class="arte-frase">Seu cliente campeão<br>compra menos peças por vez<br>e compra mais vezes.<br>Você está deixando ele fazer isso?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">No atacado, a regra de quantidade mínima existe por um motivo. Mas ela não precisa ser igual para todo mundo.
+
+O cliente campeão já provou que compra, paga e volta. Exigir que ele compre 12 peças quando ele precisa de 6 não protege sua operação — afasta quem já é seu melhor comprador.
+
+Quando você flexibiliza a quantidade para quem já tem histórico, acontece o oposto do que parece: ele compra com mais frequência, testa mais produtos e aumenta o ticket ao longo do tempo.
+
+Quantidade mínima é uma régua de entrada. Para quem já está dentro e compra bem, a régua pode ser outra.
+
+Salva esse post pra revisar sua política de clientes campeões. 🔖
+
+#atacadodemoda #gestãodeclientes #confecção #clientescampeões #modaatacado</div>
+    </div>
+  </div>
+
+  <!-- SEMANA 3 -->
+  <div class="week-divider"><span class="week-divider-tag">Semana 3 · 11 a 15.05</span><div class="week-divider-line"></div></div>
+
+  <!-- POST 6 -->
+  <div class="post-section" id="post6">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">6</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 3 · Oráculo</div>
+        <h2>3 perguntas para saber quem está pronto para comprar na sua carteira hoje</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Dica prática</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Listicle</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+Antes de mandar mensagem
+para toda a sua lista —
+faça essas 3 perguntas.</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content"><strong>Pergunta 1: Quando foi a última vez que esse cliente comprou?</strong>
+
+Se foi há menos de 30 dias → está aquecido.
+Se foi há mais de 60 dias → precisa de reativação.
+Se você não sabe responder → esse é o problema.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content"><strong>Pergunta 2: Com que frequência ele costuma comprar?</strong>
+
+Se ele compra todo mês e esse mês não comprou →
+está na hora de aparecer.
+
+Se ele nunca teve frequência →
+mandar mensagem não vai criar uma.</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content"><strong>Pergunta 3: Qual o ticket médio dele?</strong>
+
+Clientes de alto ticket merecem atenção personalizada — não disparo em massa.
+
+Clientes de baixo ticket respondem bem a promoção e novidade.
+
+A abordagem certa depende do perfil.</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">Essas 3 perguntas existem em qualquer modelo de CRM.
+
+Recência. Frequência. Valor.
+
+Quem sabe responder sobre cada cliente
+para de atirar para todos lados
+e começa a vender com inteligência.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Consegue responder essas perguntas sobre cada cliente da sua carteira agora?
+
+Se não — a gente pode ajudar.
+Link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Mandar mensagem para toda a lista ao mesmo tempo não é estratégia. É sorte.
+
+Quem está pronto para comprar hoje não é todo mundo — é quem tem histórico recente, frequência estabelecida e ticket compatível com o que você vai oferecer.
+
+Essas 3 perguntas parecem simples. Mas a maioria das confecções não consegue respondê-las sobre cada cliente da carteira.
+
+Arrasta e vê qual das três você já consegue responder. 👉
+
+#atacadodemoda #crm #confecção #gestãodevendas #rfv #modaatacado</div>
+    </div>
+  </div>
+
+  <!-- POST 7 -->
+  <div class="post-section" id="post7">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">7</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 3 · Oráculo</div>
+        <h2>Como a Vesti transforma o WhatsApp da sua confecção em canal de vendas organizado</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Produto</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Problema → Solução → Resultado</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+Seu WhatsApp está cheio.
+Mas as vendas não estão crescendo.
+Por quê?</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">O problema não é o volume de mensagens.
+É o que acontece com elas.
+
+Cliente novo misturado com cliente antigo.
+Pergunta sem resposta.
+Pedido perdido no meio da conversa.
+Ninguém sabe quem está pronto pra comprar.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content">O Oráculo organiza isso automaticamente.
+
+Cada cliente é classificado pelo comportamento de compra:
+
+🏆 <strong>Campeão</strong> — compra muito e com frequência
+💚 <strong>Fiel</strong> — compra regularmente
+🌱 <strong>Novo</strong> — acabou de entrar
+😴 <strong>Inativo</strong> — sumiu e precisa de atenção</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">Para cada perfil, uma ação diferente.
+
+Campeão → acesso especial, sem promoção
+Fiel → novidade em primeira mão
+Novo → boas-vindas e primeiro pedido
+Inativo → campanha de reativação</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">E ainda:
+
+✔ Atendimento automático 24h
+✔ Campanha segmentada no WhatsApp
+✔ Recuperação de carrinho abandonado
+✔ Reativação de cliente inativo
+
+Tudo sem aumentar o time.</div></div>
+        <div class="slide"><div class="slide-num">6</div><div class="slide-content">O resultado:
+
+Mais vendas com a mesma base de clientes.
+Menos tempo operacional.
+WhatsApp virando canal de vendas de verdade.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quer ver como o Oráculo funcionaria na sua confecção?
+
+Me chama no WhatsApp.
+Link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">WhatsApp cheio não é sinal de negócio crescendo. Pode ser sinal de operação travada.
+
+Quando tudo chega no mesmo lugar, sem organização, sem prioridade — você atende muito e vende pouco. A energia vai para o atendimento, não para a venda.
+
+O Oráculo não substitui o relacionamento que você construiu. Ele organiza esse relacionamento para que você consiga usar de verdade — sabendo quem priorizar, o que falar e quando agir.
+
+Arrasta pra ver como funciona na prática. 👉
+
+#atacadodemoda #crm #whatsappbusiness #confecção #oráculo #modaatacado #vestioficial</div>
+    </div>
+  </div>
+
+  <!-- POST 8 -->
+  <div class="post-section" id="post8">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">8</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 3 · Oráculo</div>
+        <h2>Não envie promoções para seus clientes antes de ver isso</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Dica prática</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Arte estática</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Frase da arte</div>
+      <div class="arte-box">
+        <div class="arte-frase">Mandar promoção<br>para quem já ia comprar<br>é pagar para perder margem.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Parece contra-intuitivo. Mas faz todo sentido quando você pensa bem.
+
+Seu cliente fiel vai comprar a nova coleção porque confia na sua marca. Seu campeão já tem o hábito estabelecido. Eles não precisam de desconto — eles precisam de novidade, atenção e acesso primeiro.
+
+Quando você manda promoção para eles, duas coisas acontecem:
+→ Você paga pelo disparo no WhatsApp sem necessidade
+→ Você treina esses clientes a esperarem desconto para comprar
+
+Promoção é uma ferramenta para quem precisa de estímulo para agir — clientes esfriando, inativos recentes, novos que ainda não compraram.
+
+Usar desconto para todo mundo é desperdiçar sua margem com quem já estava no seu bolso.
+
+Salva esse post antes de disparar sua próxima campanha. 🔖
+
+#atacadodemoda #estratégiadevenda #confecção #whatsappbusiness #gestãodeclientes #modaatacado</div>
+    </div>
+  </div>
+
+  <!-- POST 9 -->
+  <div class="post-section" id="post9">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">9</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 3 · Oráculo</div>
+        <h2>Recuperar um cliente é mais barato do que atrair um novo</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#E6F1FB;color:#0C447C">Educação</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Storytelling com comparativo</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+Você investe em anúncio para trazer cliente novo.
+Mas tem clientes que já compraram
+esperando você aparecer.</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">Atrair um cliente novo custa.
+
+Anúncio. Tempo. Qualificação.
+Primeira compra com desconto pra converter.
+
+E depois de tudo isso —
+ele ainda não sabe se confia em você.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content">O cliente inativo já passou por isso.
+
+Ele conhece sua marca.
+Já comprou. Já recebeu. Já aprovou.
+
+O relacionamento existe.
+Só esfriou.</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">Reativar esse cliente custa muito menos do que atrair um novo.
+
+Não precisa de anúncio.
+Não precisa de desconto agressivo.
+Precisa de uma mensagem certa no momento certo.</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">O problema é que sem organização,
+você não sabe quem são esses clientes.
+
+Eles estão misturados com todo mundo no seu WhatsApp —
+silenciosos, invisíveis,
+prontos para voltar se alguém aparecer.</div></div>
+        <div class="slide"><div class="slide-num">6</div><div class="slide-content">Com segmentação, você identifica quem esfriou,
+manda a campanha certa
+e recupera receita que já era sua.
+
+Isso se chama recuperação de carteira.
+É mais rápido, mais barato
+e mais previsível do que aquisição.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quer saber quantos clientes inativos você tem na sua carteira agora?
+
+Me chama no WhatsApp.
+Link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Todo mês você investe para trazer cliente novo. Mas quanto da sua carteira já comprou e sumiu sem você perceber?
+
+Antes de aumentar o investimento em aquisição, vale olhar para dentro. A receita que você quer pode estar na sua própria lista de contatos — só esperando uma mensagem no momento certo.
+
+Arrasta o carrossel pra entender a diferença entre aquisição e recuperação de carteira. 👉
+
+#atacadodemoda #gestãodeclientes #confecção #reativaçãodeclientes #modaatacado #oráculo</div>
+    </div>
+  </div>
+
+  <!-- SEMANA 4 -->
+  <div class="week-divider"><span class="week-divider-tag">Semana 4 · 18 a 22.05</span><div class="week-divider-line"></div></div>
+
+  <!-- POST 10 -->
+  <div class="post-section" id="post10">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">10</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 4 · Plataforma</div>
+        <h2>Como organizar seu catálogo para o cliente comprar sozinho — sem precisar da sua vendedora</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#E6F1FB;color:#0C447C">Educação</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Listicle prático</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+O catálogo certo faz o cliente comprar sozinho.
+Veja o que não pode faltar.</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content"><strong>1. Foto que mostra o produto de verdade</strong>
+
+Não só o manequim.
+Detalhe do tecido. Caimento. Textura.
+O cliente precisa sentir o produto antes de comprar.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content"><strong>2. Vídeo</strong>
+
+Movimento muda a percepção do produto.
+Confecções que usam vídeo no catálogo vendem mais —
+porque o cliente visualiza o que está comprando.</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content"><strong>3. Grade completa e visível</strong>
+
+Tamanho, cor, variação —
+tudo disponível sem precisar perguntar.
+Cada pergunta evitada é uma chance a mais de fechar o pedido.</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content"><strong>4. Preço e condição claros</strong>
+
+Preço escondido gera atrito.
+O cliente desiste antes de perguntar.
+Transparência acelera a decisão de compra.</div></div>
+        <div class="slide"><div class="slide-num">6</div><div class="slide-content"><strong>5. Navegação simples</strong>
+
+O cliente precisa encontrar o que procura sozinho.
+Categoria, filtro, busca.
+Se travar — ele sai.</div></div>
+        <div class="slide"><div class="slide-num">7</div><div class="slide-content">Um catálogo bem organizado não substitui sua vendedora.
+Libera ela para o que importa:
+relacionamento, negociação, fechamento.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Seu catálogo tem tudo isso?
+Acesse o link na bio e veja como montar o seu. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Catálogo não é só um lugar para colocar foto de produto. É a primeira impressão que o comprador tem da sua marca quando você não está presente.
+
+Se ele travar, o cliente vai embora. Se for claro e organizado, ele compra sozinho — e volta.
+
+Arrasta pra ver o que não pode faltar no catálogo de uma confecção que vende no digital. 👉
+
+#atacadodemoda #catalogodigital #confecção #ecommerceatacado #modaatacado #plataformavesti</div>
+    </div>
+  </div>
+
+  <!-- POST 11 -->
+  <div class="post-section" id="post11">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">11</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 4 · Plataforma</div>
+        <h2>Sua confecção em todo o Brasil: já conseguiu fazer a checklist nacional de venda por aí?</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Produto</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Checklist + revelação</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+Sua confecção vende para todo o Brasil
+ou só para quem chega até você?</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">Tem confecção no Brás atendendo loja em Manaus, Fortaleza, Porto Alegre,
+sem nenhum vendedor no estado.
+
+Como?
+Com catálogo digital e pedido online.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content"><strong>Checklist: sua marca está pronta?</strong>
+
+☐ Tem catálogo que o cliente acessa sem precisar ligar
+☐ Aceita pedido online sem depender de vendedora
+☐ Tem meio de pagamento integrado
+☐ Emite pedido automaticamente no sistema
+☐ Envia rastreio sem processo manual</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">Cada item não marcado é uma barreira para vender fora da sua praça.
+
+Não é que o cliente de outro estado não quer comprar da sua marca.
+É que o processo trava antes de chegar lá.</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">Com a Plataforma Vesti:
+
+✔ Catálogo acessível de qualquer lugar
+✔ Pedido online sem intermediário
+✔ Pagamento e antifraude integrados
+✔ 32+ ERPs conectados
+✔ Rastreio automático
+
+Sua confecção no Brás.
+Seu cliente em qualquer estado.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quantos itens da checklist sua marca já tem?
+
+Me chama no WhatsApp e a gente vê o que falta.
+Link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">130 mil multimarcas compram pela Vesti. Elas estão em todo o Brasil — não só no Brás, não só em São Paulo.
+
+A confecção que digitaliza a operação não depende de feira, de visita presencial ou de vendedor em cada praça. O catálogo trabalha enquanto você dorme.
+
+Quantos itens da checklist sua marca já tem? Arrasta pra conferir. 👉
+
+#atacadodemoda #confecção #ecommerceatacado #vendasonline #modaatacado #plataformavesti</div>
+    </div>
+  </div>
+
+  <!-- SEMANA 5 -->
+  <div class="week-divider"><span class="week-divider-tag">Semana 5 · 25 a 29.05</span><div class="week-divider-line"></div></div>
+
+  <!-- POST 12 -->
+  <div class="post-section" id="post12">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#E1F5EE;color:#085041">12</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 5 · Oráculo</div>
+        <h2>A confecção X reduziu 4h de atendimento por dia — veja o que mudou na operação</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Oráculo</span>
+          <span class="meta-tag" style="background:#FCEBEB;color:#A32D2D">Prova social</span>
+          <span class="meta-tag" style="background:#f0f7f4;color:#2d6b56">Carrossel</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Slides do carrossel · Storytelling de case</div>
+      <div class="slides">
+        <div class="slide"><div class="slide-num">C</div><div class="slide-content"><strong>CAPA</strong>
+4 horas por dia respondendo WhatsApp.
+Isso foi antes.</div></div>
+        <div class="slide"><div class="slide-num">2</div><div class="slide-content">A confecção X tem operação ativa,
+mais de [X] clientes na carteira
+e uma equipe pequena de vendas.
+
+Todo dia, o time passava horas respondendo as mesmas perguntas,
+para as mesmas pessoas,
+sem saber quem ia comprar de verdade.</div></div>
+        <div class="slide"><div class="slide-num">3</div><div class="slide-content">O problema não era o volume.
+Era a falta de organização.
+
+Sem saber quem era quem,
+todo cliente recebia a mesma atenção —
+quem estava pronto pra comprar
+e quem só estava perguntando.</div></div>
+        <div class="slide"><div class="slide-num">4</div><div class="slide-content">Com o Oráculo, o que mudou:
+
+✔ Clientes classificados automaticamente por perfil
+✔ IA respondendo perguntas frequentes 24h
+✔ Time focado em quem realmente ia fechar
+✔ Campanhas enviadas para o segmento certo</div></div>
+        <div class="slide"><div class="slide-num">5</div><div class="slide-content">O resultado em [X] semanas:
+
+→ 4h/dia de atendimento reduzidas
+→ Clientes inativos reativados
+→ Time de vendas mais focado e produtivo
+→ Receita recuperada sem novo investimento em aquisição</div></div>
+        <div class="slide"><div class="slide-num">6</div><div class="slide-content">Não foi tecnologia por tecnologia.
+Foi organização que virou venda.</div></div>
+        <div class="slide"><div class="slide-num cta">CTA</div><div class="slide-content">Quer ver como o Oráculo funcionaria na sua operação?
+
+Me chama no WhatsApp.
+Link na bio. 👇</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Quando o time passa mais tempo atendendo do que vendendo, o problema não é falta de cliente — é falta de organização.
+
+Esse case mostra o que acontece quando uma confecção para de tratar todo mundo igual e começa a priorizar com inteligência.
+
+Os números são reais. A operação é parecida com a sua.
+
+Arrasta pra ver o que mudou. 👉
+
+#atacadodemoda #crm #confecção #casevesti #modaatacado #oráculo #vestioficial</div>
+    </div>
+
+    <div class="note">⚠️ Preencher antes de publicar: nome da confecção, número de clientes na carteira e quantidade de semanas para o resultado nos slides 2 e 5.</div>
+  </div>
+
+  <!-- POST 13 -->
+  <div class="post-section" id="post13">
+    <div class="post-header">
+      <div class="post-header-num" style="background:#EEEDFE;color:#3C3489">13</div>
+      <div class="post-header-info">
+        <div class="post-week-tag">Semana 5 · Plataforma</div>
+        <h2>Teste se sua marca é digital</h2>
+        <div class="post-meta">
+          <span class="meta-tag" style="background:#EEEDFE;color:#3C3489">Plataforma</span>
+          <span class="meta-tag" style="background:#E1F5EE;color:#085041">Conversão</span>
+          <span class="meta-tag" style="background:#FAEEDA;color:#633806">Arte estática</span>
+          <span class="meta-tag" style="background:#F1EFE8;color:#444441">Bio → WA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Frase da arte</div>
+      <div class="arte-box">
+        <div class="arte-frase">Sua marca é digital?<br>Faça o teste.<br>Leva 2 minutos.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Legenda</div>
+      <div class="legenda-box">Não é sobre ter site. É sobre conseguir vender sem depender de você estar presente.
+
+Criamos um teste rápido para você descobrir em qual estágio digital sua confecção está — e o que falta para dar o próximo passo.
+
+São 5 perguntas. Sem enrolação.
+
+No final, você recebe um diagnóstico personalizado direto no WhatsApp.
+
+👉 Acesse o link na bio e faça o teste agora.
+
+#atacadodemoda #confecção #diagnósticodigital #modaatacado #plataformavesti #vestioficial</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// Highlight active nav item on scroll
+const sections = document.querySelectorAll('.post-section');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navItems.forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
