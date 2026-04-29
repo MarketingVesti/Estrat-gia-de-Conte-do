@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vesti Talks — Ranking de Temas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --roxo-deep: #4A467A;
+    --roxo: #6A52B3;
+    --roxo-light: #EAE7F7;
+    --roxo-mid: #C4BBEC;
+    --verde-deep: #549E86;
+    --verde: #63C19B;
+    --verde-light: #E5F6F0;
+    --verde-mid: #B0E3CF;
+    --cinza-bg: #F8F7FC;
+    --cinza-borda: #E8E5F0;
+    --cinza-texto: #8B87A0;
+    --texto: #1E1A32;
+    --texto-sec: #5C5875;
+    --branco: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cinza-bg);
+    color: var(--texto);
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde-deep);
+    margin-bottom: 12px;
+  }
+
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.1;
+    color: var(--roxo-deep);
+    margin-bottom: 10px;
+  }
+
+  .header-title em {
+    font-style: italic;
+    color: var(--verde-deep);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--texto-sec);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  /* JÁ REALIZADOS */
+  .realizados {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 40px;
+  }
+
+  .realizados-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--verde-deep);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .realizados-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--cinza-borda);
+  }
+
+  .realizados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .realizado-item {
+    background: var(--cinza-bg);
+    border-radius: 8px;
+    padding: 10px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .realizado-mes {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--verde-deep);
+    letter-spacing: 0.04em;
+  }
+
+  .realizado-titulo {
+    font-size: 12.5px;
+    color: var(--texto);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* PILAR */
+  .pilar {
+    margin-bottom: 40px;
+  }
+
+  .pilar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+
+  .pilar-num {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-texto);
+  }
+
+  .pilar-bar {
+    width: 28px;
+    height: 3px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  .pilar-nome {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--texto);
+    flex: 1;
+  }
+
+  .pilar-desc {
+    font-size: 12px;
+    color: var(--cinza-texto);
+    margin-left: auto;
+    text-align: right;
+    max-width: 240px;
+  }
+
+  /* TEMA CARD */
+  .tema-card {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .tema-card:hover {
+    border-color: var(--roxo-mid);
+    box-shadow: 0 2px 16px rgba(106, 82, 179, 0.06);
+  }
+
+  .tema-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .tema-numero {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--cinza-borda);
+    line-height: 1;
+    min-width: 34px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .tema-body { flex: 1; }
+
+  .tema-titulo {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--texto);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+
+
+  .tema-desc {
+    font-size: 12.5px;
+    color: var(--texto-sec);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  /* SCORE BAR */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .score-bg {
+    flex: 1;
+    height: 3px;
+    background: var(--cinza-bg);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 3px;
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+
+  .score-num {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--cinza-texto);
+    min-width: 28px;
+    text-align: right;
+  }
+
+  /* AGRUPA */
+  .agrupa {
+    background: var(--cinza-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+  }
+
+  .agrupa-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cinza-texto);
+    margin-bottom: 3px;
+  }
+
+  .agrupa-text {
+    font-size: 12px;
+    color: var(--texto-sec);
+    line-height: 1.5;
+  }
+
+  /* TAGS */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 99px;
+    border: 1px solid var(--cinza-borda);
+    color: var(--texto-sec);
+    background: var(--branco);
+  }
+
+  .tag-prod {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 99px;
+  }
+
+  .tag-plat    { background: var(--verde-light); color: var(--verde-deep); }
+  .tag-oraculo { background: var(--roxo-light);  color: var(--roxo-deep); }
+  .tag-ambos   { background: #EAF2FC; color: #2A5F9E; }
+  .tag-ia      { background: var(--roxo-light);  color: var(--roxo-deep); }
+  .tag-neg     { background: #FDF0E8; color: #8A4010; }
+  .tag-op      { background: var(--verde-light); color: var(--verde-deep); }
+  .tag-mkt     { background: #FDF7E8; color: #7A5500; }
+  .tag-ext     { background: #F2F2F0; color: #5C5855; }
+
+  /* CORES DE PILAR */
+  .bar-verde  { background: var(--verde); }
+  .bar-roxo   { background: var(--roxo); }
+  .bar-amber  { background: #D4931A; }
+  .bar-azul   { background: #3A8BD4; }
+  .bar-coral  { background: #D46050; }
+  .bar-cinza  { background: #9C99B0; }
+
+  .fill-verde  { background: var(--verde); }
+  .fill-roxo   { background: var(--roxo); }
+  .fill-amber  { background: #D4931A; }
+  .fill-azul   { background: #3A8BD4; }
+  .fill-coral  { background: #D46050; }
+  .fill-cinza  { background: #9C99B0; }
+
+  /* LEGENDA */
+  .legenda {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--cinza-borda);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--texto-sec);
+  }
+
+  .legenda-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* PLANEJAMENTO MENSAL */
+  .planejamento {
+    margin-bottom: 48px;
+  }
+
+  .planejamento-header {
+    margin-bottom: 28px;
+  }
+
+  .planejamento-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde-deep);
+    margin-bottom: 8px;
+  }
+
+  .planejamento-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--roxo-deep);
+    margin-bottom: 6px;
+  }
+
+  .planejamento-title em {
+    font-style: italic;
+    color: var(--verde-deep);
+  }
+
+  .planejamento-sub {
+    font-size: 13px;
+    color: var(--texto-sec);
+    line-height: 1.6;
+  }
+
+  .mes-card {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .mes-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+
+  .mes-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  .mes-badge-maio  { background: var(--roxo-light); color: var(--roxo-deep); }
+  .mes-badge-junho { background: var(--verde-light); color: var(--verde-deep); }
+  .mes-badge-julho { background: #FDF7E8; color: #7A5500; }
+
+  .mes-talk-titulo {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--texto);
+    flex: 1;
+  }
+
+  .mes-produto {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  .mes-body {
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .mes-bloco-title {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--cinza-texto);
+    margin-bottom: 10px;
+  }
+
+  .mes-justificativa {
+    font-size: 13px;
+    color: var(--texto-sec);
+    line-height: 1.65;
+  }
+
+  .mes-ig-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .ig-item {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+  }
+
+  .ig-semana {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--cinza-texto);
+    min-width: 56px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .ig-tema {
+    font-size: 12.5px;
+    color: var(--texto-sec);
+    line-height: 1.45;
+  }
+
+  .ig-item-atual .ig-semana { color: var(--verde-deep); }
+  .ig-item-atual .ig-tema   { color: var(--texto); font-weight: 500; }
+
+  .arco-tag {
+    display: inline-flex;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: var(--cinza-bg);
+    color: var(--cinza-texto);
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+
+  .mes-arco {
+    grid-column: 1 / -1;
+    background: var(--cinza-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .mes-arco-text {
+    font-size: 12.5px;
+    color: var(--texto-sec);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .header-title { font-size: 28px; }
+    .pilar-desc { display: none; }
+    .tema-numero { font-size: 22px; min-width: 26px; }
+    .mes-body { grid-template-columns: 1fr; }
+    .mes-arco { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <p class="header-eyebrow">Vesti Talks · 2026</p>
+    <h1 class="header-title">Plano de <em>conteúdo</em><br>Vesti Talks</h1>
+    <p class="header-sub">Todos os temas compilados, agrupados por pilar e ordenados por: intensidade da dor da Ana · ancoragem em produto · novidade em relação ao que já foi feito.</p>
+  </div>
+
+  <div class="realizados">
+    <p class="realizados-label">Já realizados</p>
+    <div class="realizados-grid">
+      <div class="realizado-item">
+        <span class="realizado-mes">Dezembro 2025</span>
+        <span class="realizado-titulo">RFV na prática: como segmentar clientes e vender mais</span>
+      </div>
+      <div class="realizado-item">
+        <span class="realizado-mes">Fevereiro 2026</span>
+        <span class="realizado-titulo">WhatsApp: como se adaptar às novas regras da Meta</span>
+      </div>
+      <div class="realizado-item">
+        <span class="realizado-mes">Março 2026 · 1</span>
+        <span class="realizado-titulo">Atacado vs Varejo: como tratar o cliente que vem do Instagram</span>
+      </div>
+      <div class="realizado-item">
+        <span class="realizado-mes">Março 2026 · 2</span>
+        <span class="realizado-titulo">Segmentação de clientes: boas práticas nas campanhas de WhatsApp</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PLANEJAMENTO MENSAL -->
+  <div class="planejamento">
+    <div class="planejamento-header">
+      <p class="planejamento-eyebrow">Próximos 3 meses</p>
+      <h2 class="planejamento-title">Plano de <em>conteúdo</em> e preparação</h2>
+      <p class="planejamento-sub">Tema sugerido para cada Talk + orientação de como preparar o terreno no Instagram nas semanas anteriores.</p>
+    </div>
+
+    <!-- MAIO -->
+    <div class="mes-card">
+      <div class="mes-header">
+        <span class="mes-badge mes-badge-maio">Maio 2026</span>
+        <p class="mes-talk-titulo">Reativação de clientes: como transformar quem sumiu em venda</p>
+        <span class="mes-produto tag-prod tag-oraculo">Oráculo</span>
+      </div>
+      <div class="mes-body">
+        <div>
+          <p class="mes-bloco-title">Por que agora</p>
+          <p class="mes-justificativa">O Instagram de maio já está construindo esse terreno: semana 1 planta a dor do ciclo de vida e clientes sumindo, semana 3 fala de retenção e custo de não reagir. A audiência chega ao Talk pré-aquecida. Fecha o ciclo iniciado no RFV de dezembro — de "quem são meus clientes" para "como busco de volta quem sumiu". Resultado imediato e mensurável, ancoragem total no Oráculo.</p>
+        </div>
+        <div>
+          <p class="mes-bloco-title">Preparação no Instagram</p>
+          <div class="mes-ig-list">
+            <div class="ig-item ig-item-atual">
+              <span class="ig-semana">Sem. 1</span>
+              <span class="ig-tema">Dor do ciclo de vida: clientes sumindo em silêncio</span>
+            </div>
+            <div class="ig-item ig-item-atual">
+              <span class="ig-semana">Sem. 2</span>
+              <span class="ig-tema">Plataforma: catálogo e experiência de compra</span>
+            </div>
+            <div class="ig-item ig-item-atual">
+              <span class="ig-semana">Sem. 3</span>
+              <span class="ig-tema">Qualificação + segmentação RFV + custo de não reter → Talk na semana 3</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 4</span>
+              <span class="ig-tema">Case real: "A confecção X reduziu 4h de atendimento por dia" — prova social do Oráculo com número concreto</span>
+            </div>
+          </div>
+        </div>
+        <div class="mes-arco">
+          <p class="mes-arco-text">Arco narrativo do mês: "Você sabe que tem clientes sumindo. Agora você vai aprender a buscá-los de volta — com o momento certo e a mensagem certa."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUNHO -->
+    <div class="mes-card">
+      <div class="mes-header">
+        <span class="mes-badge mes-badge-junho">Junho 2026</span>
+        <p class="mes-talk-titulo">Meta Ads para atacado: como usar sua base de clientes para escalar</p>
+        <span class="mes-produto tag-prod tag-ext">Novo produto</span>
+      </div>
+      <div class="mes-body">
+        <div>
+          <p class="mes-bloco-title">Por que agora</p>
+          <p class="mes-justificativa">A Ana já entendeu como organizar a base e reativar quem sumiu. O próximo passo natural é usar essa base como combustível para crescer — lookalike e remarketing com quem já comprou, não tráfego pago genérico. Junho também é estratégico para a Vesti: um novo produto está sendo desenvolvido para atender essa dor. O Talk planta o desejo e educa a base antes do lançamento — quando o produto chegar, a audiência já vai estar pronta.</p>
+        </div>
+        <div>
+          <p class="mes-bloco-title">Preparação no Instagram</p>
+          <div class="mes-ig-list">
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 1</span>
+              <span class="ig-tema">Dor: quanto custa atrair um cliente novo vs quanto custa vender para quem já comprou</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 2</span>
+              <span class="ig-tema">Educação: o que é lookalike e remarketing — explicado para quem vende moda no atacado</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 3</span>
+              <span class="ig-tema">Provocação: "Sua base de clientes vale mais do que você imagina no Meta Ads" → Talk semana 3 ou 4</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 4</span>
+              <span class="ig-tema">Pós-Talk: primeiros passos práticos para subir uma campanha com base própria</span>
+            </div>
+          </div>
+        </div>
+        <div class="mes-arco">
+          <p class="mes-arco-text">Arco narrativo do mês: "Você já tem os melhores clientes do Brasil na sua carteira. Agora vamos usar eles para encontrar mais pessoas iguais — e parar de gastar em anúncio para desconhecido."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JULHO -->
+    <div class="mes-card">
+      <div class="mes-header">
+        <span class="mes-badge mes-badge-julho">Julho 2026</span>
+        <p class="mes-talk-titulo">IA no catálogo: fotos profissionais sem estúdio e sem modelo</p>
+        <span class="mes-produto tag-prod tag-ia">IA + Plataforma</span>
+      </div>
+      <div class="mes-body">
+        <div>
+          <p class="mes-bloco-title">Por que agora</p>
+          <p class="mes-justificativa">Julho é mês mais lento para vendas em muitas confecções — momento ideal para um tema prático e inspirador, sem pressão de resultado imediato. IA no catálogo é leve, visual e demonstrável ao vivo, o que mantém o engajamento mesmo em período de baixa. A audiência chega preparada: já entendeu o valor do catálogo digital em meses anteriores e agora está pronta para o próximo salto na apresentação do produto.</p>
+        </div>
+        <div>
+          <p class="mes-bloco-title">Preparação no Instagram</p>
+          <div class="mes-ig-list">
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 1</span>
+              <span class="ig-tema">Dor: por que foto ruim mata a venda antes do cliente decidir</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 2</span>
+              <span class="ig-tema">Educação: o que é IA generativa de imagem — sem jargão, com exemplo de moda</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 3</span>
+              <span class="ig-tema">Antes e depois: foto comum vs foto com IA → Talk na semana 3 ou 4</span>
+            </div>
+            <div class="ig-item">
+              <span class="ig-semana">Sem. 4</span>
+              <span class="ig-tema">Pós-Talk: passo a passo prático para replicar o que foi mostrado no evento</span>
+            </div>
+          </div>
+        </div>
+        <div class="mes-arco">
+          <p class="mes-arco-text">Arco narrativo do mês: "Sua coleção merece uma apresentação à altura. Com IA, isso não depende mais de estúdio, modelo ou orçamento alto — e você pode testar ainda esse mês."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- TÍTULO LISTA COMPLETA -->
+  <div style="margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--cinza-borda); margin-bottom: 32px;">
+    <p class="header-eyebrow" style="margin-bottom: 8px;">Todos os temas</p>
+    <h2 style="font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--roxo-deep); margin-bottom: 6px;">Biblioteca de <em style="font-style: italic; color: var(--verde-deep);">conteúdos</em></h2>
+    <p style="font-size: 13px; color: var(--texto-sec); line-height: 1.6;">Temas agrupados por pilar e ordenados por prioridade — intensidade da dor da Ana, ancoragem em produto e novidade em relação ao que já foi feito.</p>
+  </div>
+
+  <!-- ═══ PILAR 1 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 01</span>
+      <div class="pilar-bar bar-verde"></div>
+      <span class="pilar-nome">Catálogo e presença digital</span>
+      <span class="pilar-desc">A porta de entrada da Ana no digital</span>
+    </div>
+
+    <!-- T1 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">01</span>
+        <div class="tema-body">
+          <p class="tema-titulo">IA no catálogo: fotos profissionais sem estúdio e sem modelo</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-verde" style="width:97%"></div></div>
+            <span class="score-num">97</span>
+          </div>
+          <p class="tema-desc">Dor operacional concreta que a Ana sente toda coleção. Resultado visível ao vivo, fácil de demonstrar ao vivo — conecta IA com catálogo de forma prática e imediata.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-ia">IA + Plataforma</span>
+        <span class="tag">Catálogo</span>
+        <span class="tag">Operação</span>
+      </div>
+    </div>
+
+    <!-- T2 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">02</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Catálogo digital que vende: como transformar sua vitrine em pedido</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-verde" style="width:88%"></div></div>
+            <span class="score-num">88</span>
+          </div>
+          <p class="tema-desc">Problema nº 1 da Vesti. A Ana ainda manda PDF e foto solta. Abre o ciclo da Plataforma de forma natural, sem virar aula de produto.</p>
+          <div class="agrupa">
+            <p class="agrupa-label">Agrupa também</p>
+            <p class="agrupa-text">Showroom no atacado · Operação de vendas · Omnichannel — todos falam da transição do manual para o digital organizado.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-plat">Plataforma</span>
+        <span class="tag">Conversão de leads</span>
+        <span class="tag">Produto</span>
+      </div>
+    </div>
+
+    <!-- T3 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">03</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Instagram que vende no atacado: o que postar quando você não é criador de conteúdo</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-verde" style="width:78%"></div></div>
+            <span class="score-num">78</span>
+          </div>
+          <p class="tema-desc">Conteúdo específico para confecção atacadista — linguagem e cliente completamente diferentes do varejo. Ninguém faz esse Talk com esse recorte.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-mkt">Marketing</span>
+        <span class="tag">Instagram</span>
+        <span class="tag">Conteúdo</span>
+        <span class="tag">Atacado</span>
+      </div>
+    </div>
+
+    <!-- T4 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">04</span>
+        <div class="tema-body">
+          <p class="tema-titulo">IA para lançamento de coleção: do produto ao Instagram em 1 hora</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-verde" style="width:74%"></div></div>
+            <span class="score-num">74</span>
+          </div>
+          <p class="tema-desc">Geração de copy, legenda, post e mensagem de WhatsApp a partir das fotos do produto. Resolve o gargalo do lançamento — que acontece toda coleção.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-ia">IA</span>
+        <span class="tag">Conteúdo</span>
+        <span class="tag">Lançamento</span>
+        <span class="tag">Instagram</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PILAR 2 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 02</span>
+      <div class="pilar-bar bar-roxo"></div>
+      <span class="pilar-nome">Base de clientes e retenção</span>
+      <span class="pilar-desc">Fazer a carteira existente valer mais</span>
+    </div>
+
+    <!-- T5 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">05</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Reativação de clientes: como transformar quem sumiu em venda</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-roxo" style="width:92%"></div></div>
+            <span class="score-num">92</span>
+          </div>
+          <p class="tema-desc">Dor altíssima, resultado rápido e visível. Fecha o ciclo do RFV e campanhas — e é onde o Oráculo aparece com mais força: mostrando quem reativar, quando e com qual mensagem.</p>
+          <div class="agrupa">
+            <p class="agrupa-label">Agrupa também</p>
+            <p class="agrupa-text">LTV / retenção · Captação via base de contatos · ROI de disparos no WhatsApp — todos giram em torno de fazer a base existente valer mais.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-oraculo">Oráculo</span>
+        <span class="tag">Reativação</span>
+        <span class="tag">CRM</span>
+        <span class="tag">Retenção</span>
+      </div>
+    </div>
+
+    <!-- T6 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">06</span>
+        <div class="tema-body">
+          <p class="tema-titulo">O que os melhores compradores do Brasil têm em comum</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-roxo" style="width:85%"></div></div>
+            <span class="score-num">85</span>
+          </div>
+          <p class="tema-desc">Talk baseado em dados reais da base Vesti. Perfil de comportamento dos clientes que mais compram. Conteúdo exclusivo que ninguém mais no mercado consegue oferecer — ancora o Oráculo de forma natural e cria autoridade.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-oraculo">Dados Vesti</span>
+        <span class="tag">Comportamento</span>
+        <span class="tag">Exclusivo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PILAR 3 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 03</span>
+      <div class="pilar-bar bar-amber"></div>
+      <span class="pilar-nome">Estratégia de negócio</span>
+      <span class="pilar-desc">Decisões que a Ana toma no feeling</span>
+    </div>
+
+    <!-- T7 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">07</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Precificação no atacado: como parar de vender barato e ainda perder cliente</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-amber" style="width:88%"></div></div>
+            <span class="score-num">88</span>
+          </div>
+          <p class="tema-desc">Ninguém fala de precificação para confecção atacadista com a profundidade que a dor merece. A Ana sente isso no bolso toda semana — mas raramente encontra conteúdo prático para resolver.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-neg">Negócio</span>
+        <span class="tag">Margem</span>
+        <span class="tag">Estratégia comercial</span>
+      </div>
+    </div>
+
+    <!-- T8 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">08</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Como montar uma grade de coleção que vende: o que produzir, quanto e para quem</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-amber" style="width:80%"></div></div>
+            <span class="score-num">80</span>
+          </div>
+          <p class="tema-desc">Liga o mundo da produção com o mundo das vendas. A Ana toma essa decisão todo mês quase sempre no feeling — e erra por excesso ou falta. Cruzar dados de venda com perfil de cliente muda isso.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-neg">Negócio</span>
+        <span class="tag">Coleção</span>
+        <span class="tag">Planejamento</span>
+        <span class="tag">Dados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PILAR 4 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 04</span>
+      <div class="pilar-bar bar-azul"></div>
+      <span class="pilar-nome">Dados e inteligência comercial</span>
+      <span class="pilar-desc">Usar dados para decidir melhor</span>
+    </div>
+
+    <!-- T9 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">09</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Inteligência de produto: como usar dados do catálogo para produzir e vender melhor</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-azul" style="width:82%"></div></div>
+            <span class="score-num">82</span>
+          </div>
+          <p class="tema-desc">Com catálogo organizado e base ativa, a Ana começa a ter dados reais. Usar acessos, interesse e giro de estoque para decidir o que produzir e o que cortar — diferente de tudo que já foi feito.</p>
+          <div class="agrupa">
+            <p class="agrupa-label">Agrupa também</p>
+            <p class="agrupa-text">Estoque estratégico · Giro de produto — mesma lógica de decisão orientada por dados.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-ambos">Plataforma + Oráculo</span>
+        <span class="tag">Dados</span>
+        <span class="tag">Operação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PILAR 5 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 05</span>
+      <div class="pilar-bar bar-coral"></div>
+      <span class="pilar-nome">Escala e aquisição</span>
+      <span class="pilar-desc">Crescer além da base atual</span>
+    </div>
+
+    <!-- T10 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">10</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Como vender para o Brasil inteiro sem sair do polo</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-coral" style="width:78%"></div></div>
+            <span class="score-num">78</span>
+          </div>
+          <p class="tema-desc">Expansão geográfica é uma ambição silenciosa de toda confecção. Mostrar que é viável com catálogo digital + Oráculo é um argumento de venda poderoso para os dois produtos.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-ambos">Plataforma + Oráculo</span>
+        <span class="tag">Escala</span>
+        <span class="tag">Nacional</span>
+      </div>
+    </div>
+
+    <!-- T11 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">11</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Meta Ads para atacado: como usar sua base de clientes para escalar</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-coral" style="width:70%"></div></div>
+            <span class="score-num">70</span>
+          </div>
+          <p class="tema-desc">Usar a própria base como combustível para lookalike e remarketing — não tráfego pago genérico. Faz sentido somente depois que catálogo e base estão organizados.</p>
+          <div class="agrupa">
+            <p class="agrupa-label">Agrupa também</p>
+            <p class="agrupa-text">Como usar CRM para escalar Meta Ads · Captação com tráfego pago — mesmo território com ângulo de dados.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-ext">Externo + Dados</span>
+        <span class="tag">Marketing</span>
+        <span class="tag">Performance</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PILAR 6 ═══ -->
+  <div class="pilar">
+    <div class="pilar-header">
+      <span class="pilar-num">Pilar 06</span>
+      <div class="pilar-bar bar-cinza"></div>
+      <span class="pilar-nome">Operação e logística</span>
+      <span class="pilar-desc">Ganhos que aparecem quando as vendas crescem</span>
+    </div>
+
+    <!-- T12 -->
+    <div class="tema-card">
+      <div class="tema-top">
+        <span class="tema-numero">12</span>
+        <div class="tema-body">
+          <p class="tema-titulo">Logística ágil: como ganhar produtividade no envio sem aumentar custo</p>
+          <div class="score-row">
+            <div class="score-bg"><div class="score-fill fill-cinza" style="width:62%"></div></div>
+            <span class="score-num">62</span>
+          </div>
+          <p class="tema-desc">Dor real mas que aparece depois que a operação de vendas já cresceu. Potencial de parceria com solução de frete para dar concretude ao conteúdo.</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag-prod tag-op">Operacional</span>
+        <span class="tag">Logística</span>
+        <span class="tag">Produtividade</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- LEGENDA -->
+  <div class="legenda" style="flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--cinza-borda);">
+    <p class="sl">Legenda</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+      <div class="legenda-item">
+        <div class="legenda-dot" style="background: var(--verde);"></div>
+        Plataforma
+      </div>
+      <div class="legenda-item">
+        <div class="legenda-dot" style="background: var(--roxo);"></div>
+        Oráculo
+      </div>
+      <div class="legenda-item">
+        <div class="legenda-dot" style="background: #3A8BD4;"></div>
+        Plataforma + Oráculo
+      </div>
+      <div class="legenda-item">
+        <div class="legenda-dot" style="background: #D4931A;"></div>
+        Estratégia de negócio
+      </div>
+    </div>
+    <div style="background: var(--cinza-bg); border-radius: var(--border-radius-md, 8px); padding: 12px 16px; max-width: 580px;">
+      <p style="font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 5px;">Score de prioridade</p>
+      <p style="font-size: 13px; color: var(--texto-sec); line-height: 1.65;">A barra e o número ao lado de cada tema indicam o score de prioridade (0–100), calculado com base em: intensidade da dor da Ana · ancoragem em produto · novidade em relação ao que já foi feito.</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
