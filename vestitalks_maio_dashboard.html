@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VestiTalks Maio 2026 — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #6A52B3;
+    --purple-light: #9B85D4;
+    --purple-bg: #F0EDF9;
+    --green: #549E86;
+    --green-light: #7BBDA6;
+    --green-bg: #EAF4EF;
+    --amber: #C8892A;
+    --amber-bg: #FDF3E3;
+    --coral: #C85A3A;
+    --coral-bg: #FAEAE5;
+    --ink: #1A1625;
+    --ink-60: rgba(26,22,37,0.6);
+    --ink-30: rgba(26,22,37,0.3);
+    --ink-10: rgba(26,22,37,0.08);
+    --surface: #FAFAF8;
+    --white: #FFFFFF;
+    --border: rgba(26,22,37,0.1);
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    padding: 48px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(106,82,179,0.35) 0%, transparent 70%);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(84,158,134,0.25) 0%, transparent 70%);
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+  }
+  .header-pills {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* MAIN */
+  .main {
+    padding: 48px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 48px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* METRIC CARDS */
+  .metrics-row {
+    display: grid;
+    gap: 12px;
+  }
+  .metrics-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .metrics-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .metric-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    position: relative;
+  }
+  .metric-card.accent-purple { border-top: 3px solid var(--purple); }
+  .metric-card.accent-green  { border-top: 3px solid var(--green); }
+  .metric-card.accent-amber  { border-top: 3px solid var(--amber); }
+  .metric-card.accent-coral  { border-top: 3px solid var(--coral); }
+
+  .metric-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-60);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .metric-card .value {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-card .sub {
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+  .metric-card .value.purple { color: var(--purple); }
+  .metric-card .value.green  { color: var(--green); }
+  .metric-card .value.amber  { color: var(--amber); }
+  .metric-card .value.coral  { color: var(--coral); }
+  .metric-card .value.ink    { color: var(--ink); }
+
+  /* STACK BAR */
+  .stack-bar-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 26px;
+    margin-top: 12px;
+  }
+  .stack-bar {
+    display: flex;
+    height: 20px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .stack-seg { transition: opacity .2s; }
+  .stack-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+  .stack-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .leg-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  /* CARD TABLE */
+  .card-table {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .card-table-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-table-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .count-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .count-badge.purple { background: var(--purple-bg); color: var(--purple); }
+  .count-badge.green  { background: var(--green-bg); color: var(--green); }
+  .count-badge.amber  { background: var(--amber-bg); color: var(--amber); }
+
+  .table-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+    font-size: 13px;
+  }
+  .table-row:last-child { border-bottom: none; }
+  .table-row .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-30);
+    width: 18px;
+    flex-shrink: 0;
+  }
+  .table-row .name { flex: 1; color: var(--ink); font-weight: 400; }
+  .table-row .brand { font-size: 11px; color: var(--ink-60); min-width: 100px; text-align: right; }
+  .badge-tipo {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 99px;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+  .badge-cli { background: var(--purple-bg); color: var(--purple); }
+  .badge-lead { background: var(--green-bg); color: var(--green); }
+  .badge-sem { background: var(--ink-10); color: var(--ink-60); }
+
+  /* NPS */
+  .nps-hero {
+    background: var(--ink);
+    border-radius: 20px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-top: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .nps-hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(84,158,134,0.3) 0%, transparent 70%);
+  }
+  .nps-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .nps-info { flex: 1; }
+  .nps-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+  .nps-zona {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .nps-bar {
+    display: flex;
+    height: 12px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .nps-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    flex-wrap: wrap;
+  }
+  .nps-legend span { display: flex; align-items: center; gap: 6px; }
+
+  /* NPS RESPONSES */
+  .nps-responses {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  .nps-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .nps-row:last-child { border-bottom: none; }
+  .nota-circle {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .nota-10, .nota-9 { background: var(--green-bg); color: var(--green); }
+  .nota-8, .nota-7  { background: var(--purple-bg); color: var(--purple); }
+  .nota-6           { background: var(--coral-bg); color: var(--coral); }
+  .nps-row-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .nps-row-brand { font-size: 11px; color: var(--ink-60); }
+  .nps-row-comment {
+    font-size: 12px;
+    color: var(--ink-60);
+    font-style: italic;
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  /* RESP CARDS (por responsável) */
+  .resp-bars {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin-top: 12px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-name-col {
+    font-size: 13px;
+    color: var(--ink);
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    background: var(--ink-10);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 99px; }
+  .bar-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-60);
+    width: 24px;
+    text-align: right;
+  }
+
+  /* ALERT */
+  .alert {
+    background: var(--amber-bg);
+    border: 1px solid rgba(200,137,42,0.25);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--amber);
+    margin-top: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 11px;
+    color: var(--ink-30);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  @media (max-width: 768px) {
+    .header { padding: 32px 24px; }
+    .header h1 { font-size: 28px; }
+    .main { padding: 32px 24px; }
+    .metrics-row.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .metrics-row.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .nps-hero { flex-direction: column; gap: 24px; }
+    .nps-number { font-size: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <p class="header-tag">Relatório de Evento</p>
+  <h1>VestiTalks<br>Maio 2026</h1>
+  <p class="header-sub">Análise completa de inscrições, presença e NPS</p>
+  <div class="header-pills">
+    <span class="pill">89 inscritos</span>
+    <span class="pill">52 presentes</span>
+    <span class="pill">12 respostas NPS</span>
+    <span class="pill">Brás, SP</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SEÇÃO 1: INSCRIÇÕES -->
+  <div class="section">
+    <p class="section-label">01 — Inscrições</p>
+
+    <div class="metrics-row cols-4">
+      <div class="metric-card accent-purple">
+        <p class="label">Total inscritos</p>
+        <p class="value ink">89</p>
+        <p class="sub">formulários recebidos</p>
+      </div>
+      <div class="metric-card accent-purple">
+        <p class="label">Clientes</p>
+        <p class="value purple">62</p>
+        <p class="sub">69,7% dos inscritos</p>
+      </div>
+      <div class="metric-card accent-green">
+        <p class="label">Leads MKT/Cris</p>
+        <p class="value green">27</p>
+        <p class="sub">30,3% dos inscritos</p>
+      </div>
+      <div class="metric-card accent-amber">
+        <p class="label">Responsáveis</p>
+        <p class="value amber">7</p>
+        <p class="sub">MKT/Cris, Elisa, PUSH…</p>
+      </div>
+    </div>
+
+    <div class="stack-bar-wrap">
+      <div class="stack-bar">
+        <div class="stack-seg" style="width:27%;background:var(--green);"></div>
+        <div class="stack-seg" style="width:73%;background:var(--purple);opacity:0.5;"></div>
+      </div>
+      <div class="stack-legend">
+        <span><span class="leg-dot" style="background:var(--green)"></span>Leads (MKT/Cris) — 27 (30,3%)</span>
+        <span><span class="leg-dot" style="background:var(--purple);opacity:.5"></span>Clientes (demais) — 62 (69,7%)</span>
+      </div>
+    </div>
+
+    <div class="resp-bars" style="margin-top:12px;">
+      <p style="font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-30);margin-bottom:14px;">Inscrições por responsável</p>
+      <div class="bar-row">
+        <span class="bar-name-col">Elisa</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--purple);"></div></div>
+        <span class="bar-count">24</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">MKT/Cris</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <span class="bar-count">27</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">PUSH</span>
+        <div class="bar-track"><div class="bar-fill" style="width:70.8%;background:var(--purple);opacity:.6;"></div></div>
+        <span class="bar-count">17</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">Luana</span>
+        <div class="bar-track"><div class="bar-fill" style="width:29.2%;background:var(--purple);opacity:.5;"></div></div>
+        <span class="bar-count">7</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">Thamiris</span>
+        <div class="bar-track"><div class="bar-fill" style="width:29.2%;background:var(--purple);opacity:.4;"></div></div>
+        <span class="bar-count">7</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">Gabriela</span>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--purple);opacity:.3;"></div></div>
+        <span class="bar-count">6</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name-col">Alexia</span>
+        <div class="bar-track"><div class="bar-fill" style="width:4.2%;background:var(--purple);opacity:.3;"></div></div>
+        <span class="bar-count">1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: PRESENÇA -->
+  <div class="section">
+    <p class="section-label">02 — Presença</p>
+
+    <div class="metrics-row cols-3">
+      <div class="metric-card accent-purple">
+        <p class="label">Inscritos</p>
+        <p class="value ink">89</p>
+      </div>
+      <div class="metric-card accent-green">
+        <p class="label">Presentes</p>
+        <p class="value green">52</p>
+        <p class="sub">pessoas únicas</p>
+      </div>
+      <div class="metric-card accent-amber">
+        <p class="label">Taxa de presença</p>
+        <p class="value amber">58,4%</p>
+        <p class="sub">37 ausentes</p>
+      </div>
+    </div>
+
+    <div class="stack-bar-wrap" style="margin-top:12px;">
+      <div class="stack-bar">
+        <div class="stack-seg" style="width:58.4%;background:var(--green);"></div>
+        <div class="stack-seg" style="width:41.6%;background:var(--ink-10);"></div>
+      </div>
+      <div class="stack-legend">
+        <span><span class="leg-dot" style="background:var(--green)"></span>Presentes — 52 (58,4%)</span>
+        <span><span class="leg-dot" style="background:var(--ink-10);border:1px solid var(--border)"></span>Ausentes — 37 (41,6%)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3: CRUZAMENTO -->
+  <div class="section">
+    <p class="section-label">03 — Cruzamento: presentes × inscritos</p>
+
+    <div class="metrics-row cols-3">
+      <div class="metric-card accent-purple">
+        <p class="label">Presentes identificados</p>
+        <p class="value ink">23</p>
+        <p class="sub">de 52 presentes</p>
+      </div>
+      <div class="metric-card accent-purple">
+        <p class="label">Clientes presentes</p>
+        <p class="value purple">17</p>
+        <p class="sub">73,9% dos identificados</p>
+      </div>
+      <div class="metric-card accent-green">
+        <p class="label">Leads presentes</p>
+        <p class="value green">6</p>
+        <p class="sub">26,1% dos identificados</p>
+      </div>
+    </div>
+
+    <div class="alert">
+      <span class="alert-icon">⚠</span>
+      <span>29 presentes não encontrados na planilha de inscritos — podem ter entrado com nome/marca diferente do cadastro, ou participado sem inscrição prévia.</span>
+    </div>
+
+    <div class="two-col">
+      <div class="card-table">
+        <div class="card-table-header">
+          <span class="card-table-title">Clientes presentes</span>
+          <span class="count-badge purple">17</span>
+        </div>
+        <div class="table-row"><span class="num">1</span><span class="name">Atendimento Beeight</span><span class="brand">Beeight</span></div>
+        <div class="table-row"><span class="num">2</span><span class="name">Blossom Modas</span><span class="brand">Blossom</span></div>
+        <div class="table-row"><span class="num">3</span><span class="name">Borisu Cesare Lombroso</span><span class="brand">Borisu</span></div>
+        <div class="table-row"><span class="num">4</span><span class="name">Confecções Daiany</span><span class="brand">Daiany Confecções</span></div>
+        <div class="table-row"><span class="num">5</span><span class="name">Daniel Benesh Online</span><span class="brand">Benesh</span></div>
+        <div class="table-row"><span class="num">6</span><span class="name">Danilo Yamadera</span><span class="brand">Anisa</span></div>
+        <div class="table-row"><span class="num">7</span><span class="name">Fredy Carpio</span><span class="brand">Issa Modas</span></div>
+        <div class="table-row"><span class="num">8</span><span class="name">Karoline Matos</span><span class="brand">Attasoft</span></div>
+        <div class="table-row"><span class="num">9</span><span class="name">Lucas Kong</span><span class="brand">VIONIX</span></div>
+        <div class="table-row"><span class="num">10</span><span class="name">Malvada Favorita</span><span class="brand">Malvada Plus</span></div>
+        <div class="table-row"><span class="num">11</span><span class="name">Marketing Kauly</span><span class="brand">Kauly</span></div>
+        <div class="table-row"><span class="num">12</span><span class="name">Pré Venda Beeight</span><span class="brand">Beeight</span></div>
+        <div class="table-row"><span class="num">13</span><span class="name">Priscila Kim</span><span class="brand">Mazarin</span></div>
+        <div class="table-row"><span class="num">14</span><span class="name">Rafael Dal</span><span class="brand">Mazarin</span></div>
+        <div class="table-row"><span class="num">15</span><span class="name">Ssang Bang Wool</span><span class="brand">Ssang Bang Wool</span></div>
+        <div class="table-row"><span class="num">16</span><span class="name">Thais Marques da Silva</span><span class="brand">Mazarin</span></div>
+        <div class="table-row"><span class="num">17</span><span class="name">Veronica Pinto Cancari</span><span class="brand">Divas Vero</span></div>
+      </div>
+
+      <div class="card-table">
+        <div class="card-table-header">
+          <span class="card-table-title">Leads presentes</span>
+          <span class="count-badge green">6</span>
+        </div>
+        <div class="table-row"><span class="num">1</span><span class="name">Andre Hisu Chung</span><span class="brand">Amiska</span></div>
+        <div class="table-row"><span class="num">2</span><span class="name">Hidrogenio HG</span><span class="brand">Hidrogênio</span></div>
+        <div class="table-row"><span class="num">3</span><span class="name">Jacob Acarapi</span><span class="brand">Uemtel</span></div>
+        <div class="table-row"><span class="num">4</span><span class="name">Leandro Dimov</span><span class="brand">Agência Frente</span></div>
+        <div class="table-row"><span class="num">5</span><span class="name">Malvada Marketing</span><span class="brand">Malvada Plus</span></div>
+        <div class="table-row"><span class="num">6</span><span class="name">Marcelo Pyo</span><span class="brand">Charisma</span></div>
+        <div style="padding:14px 20px;border-top:1px solid var(--border);">
+          <p style="font-size:11px;color:var(--ink-60);font-family:'JetBrains Mono',monospace;">Não identificados na planilha</p>
+          <p style="font-size:24px;font-family:'Inter',sans-serif;font-weight:700;color:var(--ink);margin-top:4px;">29</p>
+          <p style="font-size:12px;color:var(--ink-60);margin-top:2px;">participantes sem correspondência cadastral</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4: NPS -->
+  <div class="section">
+    <p class="section-label">04 — NPS</p>
+
+    <div class="nps-hero">
+      <div class="nps-number">67</div>
+      <div class="nps-info">
+        <p class="nps-label">Net Promoter Score — VestiTalks Maio 2026</p>
+        <p class="nps-zona">Zona de Excelência</p>
+        <div class="nps-bar">
+          <div style="width:66.7%;background:var(--green);"></div>
+          <div style="width:33.3%;background:rgba(155,133,212,0.5);"></div>
+          <div style="width:0%;background:var(--coral);"></div>
+        </div>
+        <div class="nps-legend">
+          <span><span class="leg-dot" style="background:var(--green)"></span>Promotores (9-10) — 8 &nbsp;·&nbsp; 66,7%</span>
+          <span><span class="leg-dot" style="background:rgba(155,133,212,.6)"></span>Neutros (7-8) — 4 &nbsp;·&nbsp; 33,3%</span>
+          <span><span class="leg-dot" style="background:var(--coral)"></span>Detratores — 0</span>
+        </div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:12px;font-family:'JetBrains Mono',monospace;">fórmula: (8 − 0) ÷ 12 × 100 = 67 &nbsp;·&nbsp; 12 respostas únicas &nbsp;·&nbsp; taxa de resposta 23%</p>
+      </div>
+    </div>
+
+    <div class="nps-responses">
+      <div class="card-table-header">
+        <span class="card-table-title">Respostas individuais</span>
+        <span class="count-badge amber">12 únicas</span>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-10">10</div>
+        <div>
+          <p class="nps-row-name">Julianna Toledo Avelar &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Bella Fé Moda Evangélica</span></p>
+          <p class="nps-row-comment">"Foi minha primeira vez no Talks, e achei muito interessante e interativo."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-10">10</div>
+        <div>
+          <p class="nps-row-name">Michele &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Artecor</span></p>
+          <p class="nps-row-comment">"Ter acesso direto no site."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-10">10</div>
+        <div>
+          <p class="nps-row-name">Heinz &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Issa Modas</span></p>
+          <p class="nps-row-comment">"Os dados do TINO podem ajudar bastante no planejamento para novos produtos."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-10">10</div>
+        <div>
+          <p class="nps-row-name">Iraildes Campos &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Campos Pijamas</span></p>
+          <p class="nps-row-comment">"Direcionar mais tempo para o meu negócio."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-10">10</div>
+        <div>
+          <p class="nps-row-name">Dal Won Kim &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Conf. Mazarin</span></p>
+          <p class="nps-row-comment">"Todo o conteúdo foi muito bom."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-9">9</div>
+        <div>
+          <p class="nps-row-name">Lucas &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Vionix</span></p>
+          <p class="nps-row-comment">"Nada."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-9">9</div>
+        <div>
+          <p class="nps-row-name">Priscila &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Bauarte</span></p>
+          <p class="nps-row-comment">"Ter mais reuniões sobre análises."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-9">9</div>
+        <div>
+          <p class="nps-row-name">Andre &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Amiska</span></p>
+          <p class="nps-row-comment">"Explicar melhor o que é o produto TINO."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-8">8</div>
+        <div>
+          <p class="nps-row-name">Luana &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Kauly</span></p>
+          <p class="nps-row-comment">"Nada específico."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-8">8</div>
+        <div>
+          <p class="nps-row-name">Evelin Costa &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Santo Vício</span></p>
+          <p class="nps-row-comment">"Ter mais dados da jornada dos clientes."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-8">8</div>
+        <div>
+          <p class="nps-row-name">Jessika &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Maria de Chita</span></p>
+          <p class="nps-row-comment">"Os slides poderiam ser disponibilizados para poder olhar com calma antes e já ter as dúvidas preparadas."</p>
+        </div>
+      </div>
+      <div class="nps-row">
+        <div class="nota-circle nota-7">7</div>
+        <div>
+          <p class="nps-row-name">Sok Bum Pyo &nbsp;<span style="color:var(--ink-30);font-weight:300;">·</span>&nbsp; <span class="nps-row-brand">Charisma</span></p>
+          <p class="nps-row-comment">"Mais treinamentos e talks."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">VestiTalks Maio 2026 &nbsp;·&nbsp; Marketing Vesti &nbsp;·&nbsp; Gerado em maio 2026</div>
+
+</body>
+</html>
