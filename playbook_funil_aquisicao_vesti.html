@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook de Funil & Aquisição — Vesti</title>
+<style>
+  :root {
+    --purple: #6A52B3;
+    --purple-dark: #4A467A;
+    --purple-light: #f0edf9;
+    --purple-mid: #e0d9f5;
+    --green: #549E86;
+    --green-light: #63C19B;
+    --green-bg: #eaf5f0;
+    --green-mid: #c8e9dc;
+    --amber: #e6a817;
+    --amber-bg: #fef8ec;
+    --amber-text: #7a5410;
+    --coral: #D85A30;
+    --coral-bg: #faece7;
+    --coral-text: #993c1d;
+    --text: #1a1820;
+    --text-secondary: #5a5670;
+    --text-tertiary: #9590a8;
+    --border: rgba(106,82,179,0.12);
+    --border-strong: rgba(106,82,179,0.22);
+    --bg: #faf9fc;
+    --surface: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .doc-header {
+    background: var(--purple-dark);
+    padding: 48px 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: rgba(99,193,155,0.12);
+  }
+  .doc-header::after {
+    content: ''; position: absolute; bottom: -40px; left: 200px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(106,82,179,0.3);
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 800px; }
+  .header-tag {
+    display: inline-block; background: rgba(99,193,155,0.2); color: #63C19B;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .doc-header h1 { font-size: 32px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .doc-header p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 560px; }
+  .header-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+  .meta-value { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 500; }
+
+  /* LAYOUT */
+  .body-wrap { max-width: 880px; margin: 0 auto; padding: 44px 32px 64px; }
+
+  /* TOC */
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 44px; }
+  .toc-title { font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .toc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+  .toc-list a { color: var(--text-secondary); text-decoration: none; font-size: 13px; display: flex; gap: 8px; padding: 3px 0; }
+  .toc-list a:hover { color: var(--purple); }
+  .toc-num { color: var(--purple); font-weight: 700; min-width: 26px; }
+
+  /* SECTION */
+  .section { margin-bottom: 44px; scroll-margin-top: 20px; }
+  .section-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+  .section-num {
+    min-width: 28px; height: 28px; background: var(--purple); color: #fff; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .section-num.step { width: auto; padding: 0 10px; background: var(--purple-dark); font-size: 11px; letter-spacing: 0.04em; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+  .section-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+  .lead { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 16px; }
+  .lead strong { color: var(--text); font-weight: 600; }
+
+  /* CARDS */
+  .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .card.purple { border-left: 3px solid var(--purple); border-radius: 0 var(--radius) var(--radius) 0; }
+  .card.green { border-left: 3px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; }
+  .card.coral { border-left: 3px solid var(--coral); border-radius: 0 var(--radius) var(--radius) 0; }
+  .card.amber { border-left: 3px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; line-height: 1.4; }
+  .card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* TABLE */
+  .table-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { background: var(--purple-light); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--purple-dark); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; line-height: 1.5; }
+  td:first-child { font-weight: 600; color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg); }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 5px; white-space: nowrap; }
+  .b-purple { background: var(--purple-light); color: var(--purple-dark); }
+  .b-green { background: var(--green-bg); color: #2d6b56; }
+  .b-amber { background: var(--amber-bg); color: var(--amber-text); }
+  .b-coral { background: var(--coral-bg); color: var(--coral-text); }
+
+  /* NOTES */
+  .note, .note-green, .note-amber, .note-coral {
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 12px 16px; font-size: 12.5px; line-height: 1.6; margin-top: 12px;
+  }
+  .note { background: var(--purple-light); border-left: 3px solid var(--purple); color: var(--purple-dark); }
+  .note-green { background: var(--green-bg); border-left: 3px solid var(--green); color: #2d6b56; }
+  .note-amber { background: var(--amber-bg); border-left: 3px solid var(--amber); color: var(--amber-text); }
+  .note-coral { background: var(--coral-bg); border-left: 3px solid var(--coral); color: var(--coral-text); }
+  .note strong, .note-green strong, .note-amber strong, .note-coral strong { font-weight: 700; }
+
+  /* ACTION CHECKLIST */
+  .do { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 16px 20px; margin-top: 14px; }
+  .do-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .do ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .do li { font-size: 13px; color: var(--text); line-height: 1.5; display: flex; gap: 10px; }
+  .do li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .do li strong { font-weight: 600; }
+
+  /* FLOW STRIP */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 6px; }
+  .flow-step { padding: 14px 10px; text-align: center; position: relative; }
+  .flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--text-tertiary); z-index: 2; }
+  .flow-step .f-label { font-size: 10px; font-weight: 700; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .flow-step .f-desc { font-size: 11px; line-height: 1.4; }
+  .fp { background: var(--purple-light); border-radius: 8px 0 0 8px; }
+  .fp .f-label { color: var(--purple-dark); } .fp .f-desc { color: var(--purple); }
+  .fm { background: #f0f7f4; } .fm .f-label { color: #2d6b56; } .fm .f-desc { color: var(--green); }
+  .fa { background: var(--amber-bg); } .fa .f-label { color: var(--amber-text); } .fa .f-desc { color: #b07d14; }
+  .fg { background: var(--green-bg); border-radius: 0 8px 8px 0; } .fg .f-label { color: #2d6b56; } .fg .f-desc { color: var(--green); }
+
+  /* QUESTION STEPS (IA) */
+  .qa { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+  .q { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; }
+  .q.opt { border-style: dashed; }
+  .q-head { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .q-head span { display: inline-flex; width: 20px; height: 20px; background: var(--purple); color: #fff; border-radius: 6px; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-right: 8px; }
+  .q-opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .q-opt { font-size: 11px; background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 3px 10px; color: var(--text-secondary); }
+  .q-note { font-size: 11.5px; color: var(--text-tertiary); font-style: italic; line-height: 1.5; }
+
+  /* PAUTAS */
+  .pautas { display: flex; flex-direction: column; gap: 7px; margin-top: 6px; }
+  .pauta { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .pauta .p-pillar { flex-shrink: 0; }
+  .pauta .p-text { font-size: 12.5px; color: var(--text); line-height: 1.5; }
+
+  /* DEPENDENCY ROW */
+  .dep { font-size: 12px; color: var(--text-secondary); background: var(--bg); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 12px; line-height: 1.55; }
+  .dep strong { color: var(--purple-dark); }
+
+  .footer { text-align: center; padding: 40px 0 8px; font-size: 12px; color: var(--text-tertiary); }
+
+  @media (max-width: 680px) {
+    .cards-3, .cards-2, .toc-list { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: 1fr 1fr; }
+    .flow-step:nth-child(2)::after { content: none; }
+    .doc-header { padding: 36px 24px 32px; }
+    .doc-header h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="header-inner">
+    <span class="header-tag">Playbook de execução</span>
+    <h1>Estratégia de funil &amp; aquisição PRO / Starter</h1>
+    <p>Do diagnóstico do funil atual à execução — passo a passo. Como atrair mais PRO, tirar o peso da closer e ligar conteúdo, mídia e produto.</p>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-label">Objetivo</span><span class="meta-value">Mais leads PRO + mais fechamento do digital</span></div>
+      <div class="meta-item"><span class="meta-label">Persona</span><span class="meta-value">Ana — dona de confecção atacadista</span></div>
+      <div class="meta-item"><span class="meta-label">Tiers</span><span class="meta-value">Starter (até 200k) · PRO (200k a 1M+)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <div class="toc">
+    <div class="toc-title">Índice</div>
+    <ul class="toc-list">
+      <li><a href="#funil"><span class="toc-num">00</span> O funil full-funnel B2B</a></li>
+      <li><a href="#diagnostico"><span class="toc-num">01</span> Diagnóstico: os 4 vazamentos</a></li>
+      <li><a href="#redesenho"><span class="toc-num">02</span> O funil redesenhado</a></li>
+      <li><a href="#p1"><span class="toc-num">P1</span> Captura em 2 trilhas</a></li>
+      <li><a href="#p2"><span class="toc-num">P2</span> IA qualifica e roteia</a></li>
+      <li><a href="#p3"><span class="toc-num">P3</span> Aquecimento antes da closer</a></li>
+      <li><a href="#p4"><span class="toc-num">P4</span> Closer com roteiros segmentados</a></li>
+      <li><a href="#p5"><span class="toc-num">P5</span> 2 campanhas de mídia separadas</a></li>
+      <li><a href="#p6"><span class="toc-num">P6</span> Loop de medição</a></li>
+      <li><a href="#conteudo"><span class="toc-num">03</span> Conteúdo: trinca + performance (Tino)</a></li>
+      <li><a href="#comecar"><span class="toc-num">→</span> Por onde começar</a></li>
+    </ul>
+  </div>
+
+  <!-- 00 FUNIL -->
+  <div class="section" id="funil">
+    <div class="section-header">
+      <div class="section-num">00</div>
+      <div><div class="section-title">O funil full-funnel B2B</div>
+      <div class="section-sub">A estrutura base — quatro estágios, com a retenção realimentando o topo</div></div>
+    </div>
+    <p class="lead">A lógica é a clássica de aquisição terminando no fechamento, mas com a camada de <strong>retenção e expansão</strong> — onde, no B2B SaaS, mora boa parte do valor (LTV, upsell, indicação) — que volta a alimentar o topo.</p>
+    <div class="flow">
+      <div class="flow-step fp"><div class="f-label">Topo · ToFu</div><div class="f-desc">Atração e descoberta</div></div>
+      <div class="flow-step fm"><div class="f-label">Meio · MoFu</div><div class="f-desc">Nutrição e qualificação</div></div>
+      <div class="flow-step fa"><div class="f-label">Fundo · BoFu</div><div class="f-desc">Decisão e conversão</div></div>
+      <div class="flow-step fg"><div class="f-label">Retenção</div><div class="f-desc">Reter · expandir · indicar</div></div>
+    </div>
+    <div class="note">A retenção não é o fim da linha: cliente satisfeito vira indicação e Starter que cresceu vira PRO. Isso realimenta o topo — e indicação é justamente o que mais move a Ana.</div>
+  </div>
+
+  <hr>
+
+  <!-- 01 DIAGNOSTICO -->
+  <div class="section" id="diagnostico">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div><div class="section-title">Diagnóstico: os 4 vazamentos do funil atual</div>
+      <div class="section-sub">Onde a operação perde PRO e perde fechamento hoje</div></div>
+    </div>
+    <div class="cards-2">
+      <div class="card coral">
+        <div class="card-label" style="color:var(--coral-text)">Vazamento 1</div>
+        <div class="card-title">A Meta entrega Starter de propósito</div>
+        <div class="card-desc">Lookalike + interesse otimizando pra "lead" faz o algoritmo buscar o lead mais barato — e o Starter é mais barato e clica mais. Mesmo com conteúdo melhor, a gravidade puxa pra Starter.</div>
+      </div>
+      <div class="card coral">
+        <div class="card-label" style="color:var(--coral-text)">Vazamento 2</div>
+        <div class="card-title">O criativo não filtra</div>
+        <div class="card-desc">Com público fraco, quem segmenta tem que ser o criativo. Conteúdo genérico atrai Starter. Falta nomear a dor específica do PRO pra que só ele levante a mão.</div>
+      </div>
+      <div class="card coral">
+        <div class="card-label" style="color:var(--coral-text)">Vazamento 3</div>
+        <div class="card-title">Não existe meio de funil</div>
+        <div class="card-desc">Hoje é anúncio → IA qualifica → closer. Entre "viu o anúncio" e "vendedora vendendo" não tem nada. A closer recebe lead frio e é a única engrenagem de convencimento — por isso o digital fecha pouco.</div>
+      </div>
+      <div class="card coral">
+        <div class="card-label" style="color:var(--coral-text)">Vazamento 4</div>
+        <div class="card-title">Abordagem igual pra todo mundo</div>
+        <div class="card-desc">PRO, Starter e lead de site (alta intenção) caem no mesmo fluxo e recebem o mesmo tratamento. Sem régua por perfil/temperatura, a conversa nunca encaixa.</div>
+      </div>
+    </div>
+    <div class="note-amber"><strong>O que sustenta a correção dos quatro:</strong> fechar o loop de medição. Amarrar origem → criativo/público → resultado PRO ou Starter no HubSpot, e matar toda semana o criativo que só traz Starter. Sem isso, "melhorar o conteúdo" vira chute.</div>
+  </div>
+
+  <hr>
+
+  <!-- 02 REDESENHO -->
+  <div class="section" id="redesenho">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div><div class="section-title">O funil redesenhado (estado-alvo)</div>
+      <div class="section-sub">Duas trilhas separadas e a camada de aquecimento que hoje não existe</div></div>
+    </div>
+    <p class="lead">Três mudanças em relação ao funil de hoje: a captura roda em <strong>duas trilhas de criativo</strong> (a dor faz o filtro), a IA deixa de ser só porteira e vira <strong>roteador</strong>, e entra uma <strong>camada de aquecimento antes da closer</strong> — diagnóstico + prova — para ela fechar, não ensinar.</p>
+    <div class="cards-2">
+      <div class="card purple">
+        <div class="card-label" style="color:var(--purple)">Trilha PRO</div>
+        <div class="card-title">Dor de inteligência → aquecimento PRO → closer (Plataforma alta + Oráculo)</div>
+        <div class="card-desc">Faturamento 200k a 1M+. Já tem alguma estrutura; a dor é de escala e priorização.</div>
+      </div>
+      <div class="card green">
+        <div class="card-label" style="color:var(--green)">Trilha Starter</div>
+        <div class="card-title">Dor de estrutura → aquecimento Starter → closer (Plataforma entrada)</div>
+        <div class="card-desc">Faturamento até 200k. Ainda fora do digital; a dor é de organização e catálogo.</div>
+      </div>
+    </div>
+    <div class="note-green">As duas trilhas convergem no cliente, e a retenção realimenta o topo. Cada trilha tem aquecimento e roteiro próprios — assim o PRO nunca cai na conversa de Starter.</div>
+  </div>
+
+  <hr>
+
+  <!-- P1 -->
+  <div class="section" id="p1">
+    <div class="section-header">
+      <div class="section-num step">Passo 1</div>
+      <div><div class="section-title">Captura em 2 trilhas de criativo</div>
+      <div class="section-sub">Não é segmentação de público — é o criativo fazendo o filtro pela dor</div></div>
+    </div>
+    <p class="lead">Como a segmentação de público é fraca, quem separa PRO de Starter é a <strong>dor no criativo</strong>. A dor de inteligência só ressoa em quem tem volume; o Starter que nem entrou no digital não levanta a mão pra ela.</p>
+    <div class="cards-2">
+      <div class="card purple">
+        <div class="card-label" style="color:var(--purple)">Criativo PRO — falta de inteligência</div>
+        <div class="card-desc">"Você sabe quem vai comprar hoje, ou só acha que sabe?" · não sabe quem priorizar, quem tá pronto, quem sumiu. <em>Sem nomear o produto.</em></div>
+      </div>
+      <div class="card green">
+        <div class="card-label" style="color:var(--green)">Criativo Starter — falta de estrutura</div>
+        <div class="card-desc">"Ainda manda PDF e foto solta no WhatsApp?" · sem um lugar organizado pro cliente comprar sozinho.</div>
+      </div>
+    </div>
+    <div class="do">
+      <div class="do-label">O que fazer</div>
+      <ul>
+        <li>Produzir <strong>duas trilhas de criativo distintas</strong> — não a mesma arte com legenda trocada.</li>
+        <li>Manter os canais de captura (mídia paga, orgânico por bio, site) — o que muda é a mensagem.</li>
+        <li>Cada formato segue o papel que já funciona: <strong>Reels</strong> (frio, aquece, vai pro perfil) e <strong>carrossel/estático</strong> (vai pro WhatsApp).</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- P2 -->
+  <div class="section" id="p2">
+    <div class="section-header">
+      <div class="section-num step">Passo 2</div>
+      <div><div class="section-title">IA qualifica e roteia</div>
+      <div class="section-sub">Já está rodando — o ajuste-chave é a dor da pergunta 3</div></div>
+    </div>
+    <p class="lead">A IA não interroga, ela <strong>diagnostica</strong>: infere o tier por sinais de baixo atrito e lê a dor — e é a dor que roteia. Faturamento nunca abre a conversa. Máximo 3–4 perguntas, com botões.</p>
+    <div class="qa">
+      <div class="q">
+        <div class="q-head"><span>1</span>É confecção que vende no atacado?</div>
+        <div class="q-opts"><span class="q-opt">Sim</span><span class="q-opt">Sou lojista/multimarca</span><span class="q-opt">Outro</span></div>
+        <div class="q-note">Lojista/outro cai num branch de saída educada — nutre, não vai pra fila da closer de confecção.</div>
+      </div>
+      <div class="q">
+        <div class="q-head"><span>2</span>Quantas pessoas atendem e vendem?</div>
+        <div class="q-opts"><span class="q-opt">Só eu</span><span class="q-opt">2 a 3</span><span class="q-opt">4 ou mais</span></div>
+        <div class="q-note">Proxy de porte sem perguntar receita. 4+ puxa PRO.</div>
+      </div>
+      <div class="q">
+        <div class="q-head"><span>3</span>O que mais te trava hoje? <span style="background:var(--green);width:auto;padding:0 8px;border-radius:6px;font-size:10px;margin-left:4px">roteador principal</span></div>
+        <div class="q-opts"><span class="q-opt">Mando PDF/foto solta, me perco no WhatsApp → Starter</span><span class="q-opt">Não sei quem priorizar: quem tá pronto, quem sumiu → PRO</span></div>
+        <div class="q-note">Dois baldes limpos: falta de <strong>estrutura</strong> (Plataforma/Starter) vs. falta de <strong>inteligência</strong> (Oráculo/PRO).</div>
+      </div>
+      <div class="q opt">
+        <div class="q-head"><span>4</span>(Se ambíguo) Faixa de faturamento por mês</div>
+        <div class="q-opts"><span class="q-opt">Até 200k</span><span class="q-opt">200 a 500k</span><span class="q-opt">500k+</span><span class="q-opt">Prefiro não dizer</span></div>
+        <div class="q-note">Faixa em botão é mais respondível que número aberto. "Prefiro não dizer" é saída sem atrito — o tier sai de equipe + dor.</div>
+      </div>
+    </div>
+    <div class="note-coral"><strong>Correção importante:</strong> "perde pedido no excesso de mensagem" <strong>não</strong> é dor de PRO — o Starter também se perde no WhatsApp. Isso é dor de estrutura (Plataforma). A dor que marca o PRO é a de inteligência: não saber quem priorizar.</div>
+    <div class="do">
+      <div class="do-label">Regra de roteamento</div>
+      <ul>
+        <li>A <strong>dor</strong> define a trilha de aquecimento e o produto.</li>
+        <li><strong>Equipe + faixa</strong> definem o tier (Plataforma entrada vs. alta + Oráculo) e a prioridade.</li>
+        <li>PRO = equipe 4+ <strong>ou</strong> faixa 200k+ <strong>ou</strong> dor de inteligência.</li>
+        <li>Sinais misturados ou recusou faturamento? Roteia pela dor e marca tier "a confirmar" — nunca trava o lead.</li>
+        <li>A IA grava no HubSpot: encaixe, equipe, dor (a frase dela), faixa, tier. PRO ganha <strong>SLA de resposta mais curto</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- P3 -->
+  <div class="section" id="p3">
+    <div class="section-header">
+      <div class="section-num step">Passo 3</div>
+      <div><div class="section-title">Aquecimento antes da closer</div>
+      <div class="section-sub">O elo que falta — onde está o maior vazamento</div></div>
+    </div>
+    <p class="lead">Logo depois de qualificar, e <strong>antes</strong> da closer, a IA espelha a dor com a frase que a Ana usou e entrega prova. Quando a closer entra, o lead já entende e já viu caso. Ela fecha, não ensina — e não repete pergunta.</p>
+    <div class="do">
+      <div class="do-label">O que entregar (por trilha)</div>
+      <ul>
+        <li><strong>Diagnóstico da dor</strong> — devolver pra Ana o problema que ela mesma nomeou.</li>
+        <li><strong>1 caso real de um par do mesmo porte</strong> — prova social é o que mais move a Ana.</li>
+        <li><strong>Um "como funciona na prática" curto</strong> — vídeo ou exemplo rápido.</li>
+        <li>Só então conectar com a closer — já quente e já classificado.</li>
+      </ul>
+    </div>
+    <div class="note">Esse é o ajuste que tira 100% do peso das costas da closer. É também o arquétipo aplicado ao funil: a Ana nomeia o problema antes de o produto aparecer.</div>
+  </div>
+
+  <hr>
+
+  <!-- P4 -->
+  <div class="section" id="p4">
+    <div class="section-header">
+      <div class="section-num step">Passo 4</div>
+      <div><div class="section-title">Closer com roteiros segmentados</div>
+      <div class="section-sub">Régua por perfil e por temperatura</div></div>
+    </div>
+    <div class="cards-2">
+      <div class="card purple">
+        <div class="card-label" style="color:var(--purple)">Roteiro PRO</div>
+        <div class="card-desc">Conversa de escala e inteligência de cliente. Produtos: Plataforma tier alto + Oráculo. Prova de pares de alto faturamento.</div>
+      </div>
+      <div class="card green">
+        <div class="card-label" style="color:var(--green)">Roteiro Starter</div>
+        <div class="card-desc">Conversa de catálogo e organização. Produto: Plataforma entrada. Prova de confecções que saíram do PDF.</div>
+      </div>
+    </div>
+    <div class="do">
+      <div class="do-label">O que fazer</div>
+      <ul>
+        <li>Dar à closer <strong>um roteiro PRO e um Starter</strong>, cada um com a prova certa.</li>
+        <li>Separar também por <strong>temperatura</strong>: lead de site (alta intenção, abordagem direta) ≠ lead de anúncio frio (boas-vindas + diagnóstico).</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- P5 -->
+  <div class="section" id="p5">
+    <div class="section-header">
+      <div class="section-num step">Passo 5</div>
+      <div><div class="section-title">2 campanhas de mídia separadas</div>
+      <div class="section-sub">Duas campanhas de verdade — orçamento, público e KPI próprios</div></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensão</th><th>Campanha PRO</th><th>Campanha Starter</th></tr></thead>
+        <tbody>
+          <tr><td>Otimização</td><td>Lead qualificado PRO (marcação de tier do HubSpot → Meta via CAPI)</td><td>Conversa/lead — volume tudo bem</td></tr>
+          <tr><td>Público (semente)</td><td>Lookalike 1–3% da base real de clientes PRO + interesses de escala</td><td>Lookalike de Starters ou interesse amplo (ainda fora do digital)</td></tr>
+          <tr><td>Dor no criativo</td><td>Inteligência: "não sabe quem priorizar" (sem nomear Oráculo)</td><td>Estrutura: "ainda manda PDF e foto solta"</td></tr>
+          <tr><td>Formato + destino</td><td>Reels (frio → perfil) · carrossel/estático (→ WhatsApp)</td><td>Igual</td></tr>
+          <tr><td>Orçamento</td><td>Peso maior — é a prioridade e é mais caro</td><td>Roda em paralelo (receita Plataforma entrada)</td></tr>
+          <tr><td>KPI</td><td>Custo por lead PRO qualificado · % de PRO · CAC vs LTV (alto)</td><td>CPL e volume</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="do">
+      <div class="do-label">As 4 coisas que decidem se funciona</div>
+      <ul>
+        <li><strong>Separar a campanha sozinho não resolve</strong> — se as duas otimizam pro mesmo evento, a Meta acha Starter barato dentro da PRO. O que vira PRO de verdade é mandar de volta pra Meta quem o HubSpot marcou PRO (CAPI/conversões offline). Só dá porque a qualificação já roda.</li>
+        <li><strong>Exclusão de público</strong> — exclui clientes e leads atuais das duas; o lookalike Starter exclui o PRO e vice-versa, senão brigam no leilão e encarecem.</li>
+        <li><strong>A semente do lookalike PRO é sua base real de clientes PRO</strong> — lookalike de cliente bom ganha de público de interesse, sempre.</li>
+        <li><strong>O criativo é o filtro mais forte</strong> — mesmo com público imperfeito, a dor de inteligência afasta o Starter.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- P6 -->
+  <div class="section" id="p6">
+    <div class="section-header">
+      <div class="section-num step">Passo 6</div>
+      <div><div class="section-title">Loop de medição</div>
+      <div class="section-sub">O que faz tudo se autocorrigir — e o mais barato</div></div>
+    </div>
+    <div class="flow">
+      <div class="flow-step fp"><div class="f-label">IA</div><div class="f-desc">Marca o tier no HubSpot</div></div>
+      <div class="flow-step fm"><div class="f-label">HubSpot</div><div class="f-desc">Amarra origem → criativo → resultado</div></div>
+      <div class="flow-step fa"><div class="f-label">Meta</div><div class="f-desc">Recebe o PRO via CAPI e treina o lookalike</div></div>
+      <div class="flow-step fg"><div class="f-label">Mídia</div><div class="f-desc">Mata o criativo que só traz Starter</div></div>
+    </div>
+    <div class="note-green">O dado de tier que a IA gera é o combustível de tudo: é ele que ensina a Meta a achar PRO. Sem esse dado limpo, a campanha PRO não fecha — vira só mais uma campanha.</div>
+  </div>
+
+  <hr>
+
+  <!-- 03 CONTEUDO -->
+  <div class="section" id="conteudo">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div><div class="section-title">Conteúdo: a trinca de produtos + performance (Tino)</div>
+      <div class="section-sub">Três camadas que se separam sem sobrepor</div></div>
+    </div>
+    <p class="lead">Os três produtos respondem perguntas diferentes — <strong>onde vendo · pra quem vendo · o que produzo</strong>. Separar assim evita que tudo vire commodity.</p>
+    <div class="cards-3">
+      <div class="card purple">
+        <div class="card-label" style="color:var(--purple)">Plataforma</div>
+        <div class="card-title">Inteligência de estrutura</div>
+        <div class="card-desc">Um lugar organizado pro cliente comprar. Responde: onde vendo.</div>
+      </div>
+      <div class="card green">
+        <div class="card-label" style="color:var(--green)">Oráculo</div>
+        <div class="card-title">Inteligência de cliente</div>
+        <div class="card-desc">Quem priorizar, quem está pronto, quem sumiu. Responde: pra quem vendo.</div>
+      </div>
+      <div class="card amber">
+        <div class="card-label" style="color:var(--amber-text)">Tino</div>
+        <div class="card-title">Inteligência de produto</div>
+        <div class="card-desc">O que produzir, o que ajustar (preço, foto, posição, grade), o que está encalhando. Responde: o que produzo.</div>
+      </div>
+    </div>
+
+    <div class="note-amber" style="margin-top:18px"><strong>Território de performance / tráfego pago:</strong> o ângulo forte é diagnóstico, não "a Vesti roda seu tráfego". <em>Tráfego sem inteligência é pagar pra adivinhar.</em> A história fecha sozinha: você traz gente pro catálogo → cada visita vira dado → o Tino lê → você decide produção no dado, não no feeling.</div>
+
+    <div class="dep" style="margin-top:14px"><strong>Pra qual Ana e em que ritmo:</strong> o Tino é PRO-leaning por natureza (precisa de catálogo com movimento pra ler). Entra como o Oráculo entrou — <strong>dor e educação primeiro, sem nomear</strong>, até ter caso publicável, em fatia pequena do mix, mirando PRO. O conteúdo de Tino ainda reforça a Plataforma pro Starter ("sem catálogo, você nem captura esse dado").</div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.07em;margin:22px 0 4px">Ângulos pra começar a encaixar</div>
+    <div class="pautas">
+      <div class="pauta"><span class="badge b-purple p-pillar">Dor</span><span class="p-text">"Estoque parado não é azar. É decisão errada." — preço fora, foto que não converte, posição errada no catálogo.</span></div>
+      <div class="pauta"><span class="badge b-purple p-pillar">Dor</span><span class="p-text">"Você está produzindo a próxima coleção — mas sabe o que seu cliente quer comprar, ou está repetindo o que vendeu da última vez?"</span></div>
+      <div class="pauta"><span class="badge b-purple p-pillar">Dor</span><span class="p-text">"No varejo, a grade é decidida no dado. No atacado, ainda é decidida no feeling."</span></div>
+      <div class="pauta"><span class="badge b-green p-pillar">Educação</span><span class="p-text">"Tráfego não é vaidade: cada visita no seu catálogo te diz o que produzir."</span></div>
+      <div class="pauta"><span class="badge b-green p-pillar">Educação</span><span class="p-text">"Investir em tráfego sem ler o comportamento é pagar pra adivinhar."</span></div>
+      <div class="pauta"><span class="badge b-green p-pillar">Educação</span><span class="p-text">"O que o movimento do seu catálogo revela que o relatório de vendas esconde — o que é olhado e não comprado."</span></div>
+      <div class="pauta"><span class="badge b-amber p-pillar">Dica prática</span><span class="p-text">"Produto com muita visita e pouca venda: quase sempre é foto ou preço. Como descobrir qual."</span></div>
+      <div class="pauta"><span class="badge b-amber p-pillar">Dica prática</span><span class="p-text">"3 sinais no seu catálogo que dizem o que parar de produzir."</span></div>
+      <div class="pauta"><span class="badge b-coral p-pillar">Prova/Produto</span><span class="p-text">"Tino: do dado à decisão." — depois, com caso: a confecção que parou de produzir no feeling e virou grade encalhada em caixa.</span></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- COMECAR -->
+  <div class="section" id="comecar">
+    <div class="section-header">
+      <div class="section-num">→</div>
+      <div><div class="section-title">Por onde começar</div>
+      <div class="section-sub">Os pontos de maior alavancagem, em ordem</div></div>
+    </div>
+    <div class="do">
+      <div class="do-label">Comece por aqui</div>
+      <ul>
+        <li><strong>Campanha PRO separada</strong> — lookalike da base de clientes PRO + criativo de dor de inteligência (sem nomear o produto), medindo PRO vs Starter no HubSpot.</li>
+        <li><strong>Camada de aquecimento antes da closer</strong> — 1 caso real + 1 "como funciona", entregues assim que o lead é qualificado, separados por PRO/Starter.</li>
+        <li><strong>Loop de medição ligado</strong> — o que sustenta os dois: tier do HubSpot voltando pra Meta via CAPI.</li>
+      </ul>
+    </div>
+    <div class="note">Próximo entregável natural: a copy real dos criativos de dor PRO e das mensagens de aquecimento (PRO e Starter) — é o que tira este plano do papel.</div>
+  </div>
+
+  <div class="footer">Playbook de Funil &amp; Aquisição Vesti · Documento interno · Marketing Vesti</div>
+
+</div>
+</body>
+</html>
