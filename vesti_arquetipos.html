@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vesti — Identidade de Arquétipos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple-deep: #4A467A;
+    --purple-mid: #6A52B3;
+    --purple-light: #F1EFF9;
+    --purple-pale: #EEEDFE;
+    --green-mid: #549E86;
+    --green-dark: #3a7060;
+    --green-light: #eaf5f1;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-tertiary: #9898b0;
+    --border: rgba(106, 82, 179, 0.15);
+    --border-strong: rgba(106, 82, 179, 0.3);
+    --bg: #fafafa;
+    --surface: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--purple-deep);
+    padding: 3.5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 60px solid rgba(106,82,179,0.25);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .header-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .header-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+  .header-title strong {
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    max-width: 480px;
+  }
+  .header-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--green-mid);
+    margin: 1.5rem 0 0;
+  }
+
+  /* NAV DOTS */
+  .nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border-strong);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    padding: 0;
+  }
+  .nav-dot:hover, .nav-dot.active { background: var(--purple-mid); transform: scale(1.4); }
+
+  /* MAIN */
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  /* SECTION */
+  section { margin-bottom: 4rem; }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple-mid);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .section-intro {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 560px;
+  }
+
+  /* RULE */
+  .rule { height: 0.5px; background: var(--border); margin: 2.5rem 0; }
+
+  /* ARCHETYPE CARDS */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .arch-card {
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    border: 0.5px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-card.sabio {
+    background: var(--surface);
+    border-color: var(--purple-mid);
+  }
+  .arch-card.mago {
+    background: var(--surface);
+    border-color: var(--green-mid);
+  }
+  .arch-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .arch-card.sabio::before { background: var(--purple-mid); }
+  .arch-card.mago::before { background: var(--green-mid); }
+
+  .arch-symbol {
+    font-size: 28px;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .arch-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .arch-card.sabio .arch-name { color: var(--purple-mid); }
+  .arch-card.mago .arch-name { color: var(--green-dark); }
+  .arch-role {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--text-tertiary);
+  }
+  .arch-essence {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .arch-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .arch-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 400;
+  }
+  .sabio .arch-tag { background: var(--purple-pale); color: var(--purple-deep); }
+  .mago .arch-tag { background: var(--green-light); color: var(--green-dark); }
+
+  /* PROMISE BOX */
+  .promise-box {
+    background: var(--purple-deep);
+    border-radius: 12px;
+    padding: 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .promise-box::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+  .promise-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .promise-text {
+    font-size: clamp(16px, 2.2vw, 20px);
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.55;
+    position: relative;
+  }
+
+  /* FLOW SECTION */
+  .flow-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .flow-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.25rem;
+  }
+  .flow-card-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .flow-card.opens .flow-card-label { color: var(--purple-mid); }
+  .flow-card.closes .flow-card-label { color: var(--green-dark); }
+  .flow-card-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .flow-arrow {
+    font-size: 20px;
+    color: var(--border-strong);
+    text-align: center;
+  }
+
+  /* VOICE GRID */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .voice-card {
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 0.5px solid var(--border);
+  }
+  .voice-card.yes { background: var(--green-light); border-color: rgba(84,158,134,0.3); }
+  .voice-card.no { background: #faf8f8; border-color: rgba(0,0,0,0.07); }
+  .voice-header {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .voice-card.yes .voice-header { color: var(--green-dark); }
+  .voice-card.no .voice-header { color: #b0a0a0; }
+  .voice-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .voice-card.yes .voice-dot { background: var(--green-mid); }
+  .voice-card.no .voice-dot { background: #d0c0c0; }
+  .voice-item {
+    font-size: 13px;
+    padding: 0.45rem 0;
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    color: var(--text-secondary);
+  }
+  .voice-item:last-child { border-bottom: none; }
+  .voice-card.no .voice-item { text-decoration: line-through; color: #c0b8b8; text-decoration-color: #d0c0c0; }
+
+  /* TAGLINES */
+  .tagline-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+  .tagline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .tagline-ctx {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    padding-top: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .tagline-copy {
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* VOCAB BANK */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .vocab-item {
+    font-size: 13px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    border-left: 3px solid var(--purple-mid);
+  }
+
+  /* PRODUCT BLOCK */
+  .product-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    align-items: start;
+  }
+  .product-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--purple-mid);
+    background: var(--purple-pale);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .product-copy {
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    line-height: 1.55;
+  }
+  .product-copy span {
+    display: block;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 0.35rem;
+    font-style: italic;
+  }
+
+  /* TABOO */
+  .taboo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .taboo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .taboo-word {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c06060;
+    text-decoration: line-through;
+    text-decoration-color: #e09090;
+  }
+  .taboo-reason {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--purple-deep);
+    padding: 2rem;
+    text-align: center;
+  }
+  .footer-inner { max-width: 760px; margin: 0 auto; }
+  .footer-url {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer-title {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 600px) {
+    .arch-grid, .voice-grid, .taboo-grid, .flow-row { grid-template-columns: 1fr; }
+    .flow-arrow { transform: rotate(90deg); text-align: center; }
+    .tagline-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .tagline-ctx { padding-top: 0; }
+    .product-row { grid-template-columns: 1fr; }
+    .nav-dots { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" aria-label="Navegação por seção">
+  <button class="nav-dot active" data-target="arquétipos" title="Arquétipos"></button>
+  <button class="nav-dot" data-target="promessa" title="Promessa"></button>
+  <button class="nav-dot" data-target="fluxo" title="Fluxo"></button>
+  <button class="nav-dot" data-target="tom" title="Tom de voz"></button>
+  <button class="nav-dot" data-target="taglines" title="Taglines"></button>
+  <button class="nav-dot" data-target="produtos" title="Produtos"></button>
+  <button class="nav-dot" data-target="vocabulário" title="Vocabulário"></button>
+</nav>
+
+<header class="site-header">
+  <div class="header-inner">
+    <p class="header-eyebrow">Identidade Verbal — Realinhamento Estratégico</p>
+    <h1 class="header-title">Vesti: <strong>Sábio + Mago</strong></h1>
+    <p class="header-sub">Sistema de linguagem para B2B fashion tech. Guia interno de arquétipos, tom de voz e copy por produto.</p>
+    <div class="header-divider"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ARQUÉTIPOS -->
+  <section id="arquétipos">
+    <p class="section-eyebrow">Os dois arquétipos</p>
+    <h2 class="section-title">Dois papéis, uma voz coerente</h2>
+    <p class="section-intro">O Sábio fala antes da venda — valida o diagnóstico, demonstra profundidade. O Mago fala durante e depois — mostra o que a operação se torna quando a ferramenta certa entra em campo.</p>
+
+    <div class="arch-grid">
+      <div class="arch-card sabio">
+        <span class="arch-symbol">◈</span>
+        <div class="arch-name">O Sábio</div>
+        <div class="arch-role">Diagnóstico antes da solução</div>
+        <p class="arch-essence">Conhece o setor com profundidade que só vem de quem viveu os problemas. Fala com autoridade — não como consultor externo, mas como quem entende por dentro como funciona uma confecção.</p>
+        <div class="arch-tags">
+          <span class="arch-tag">Clareza</span>
+          <span class="arch-tag">Autoridade</span>
+          <span class="arch-tag">Profundidade</span>
+          <span class="arch-tag">Diagnóstico preciso</span>
+        </div>
+      </div>
+      <div class="arch-card mago">
+        <span class="arch-symbol">◇</span>
+        <div class="arch-name">O Mago</div>
+        <div class="arch-role">Transformação antes × depois</div>
+        <p class="arch-essence">Transforma operações que antes consumiam dias em processos que rodam sozinhos. A tecnologia na mão da Vesti parece improvável — até que você vê funcionando.</p>
+        <div class="arch-tags">
+          <span class="arch-tag">Transformação</span>
+          <span class="arch-tag">Resultado improvável</span>
+          <span class="arch-tag">Inteligência invisível</span>
+          <span class="arch-tag">Antes × depois</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- PROMESSA -->
+  <section id="promessa">
+    <p class="section-eyebrow">Promessa central da marca</p>
+    <h2 class="section-title">O que a Vesti entrega, em uma frase</h2>
+    <div class="promise-box">
+      <p class="promise-label">Brand Promise</p>
+      <p class="promise-text">"A Vesti entende o que uma confecção precisa antes mesmo de você precisar explicar — e transforma esse entendimento em crescimento visível."</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- FLUXO -->
+  <section id="fluxo">
+    <p class="section-eyebrow">Como os dois arquétipos se complementam</p>
+    <h2 class="section-title">Sábio abre. Mago fecha.</h2>
+    <p class="section-intro">A sequência natural em qualquer peça de comunicação: primeiro o reconhecimento do problema, depois a demonstração da transformação.</p>
+
+    <div class="flow-row">
+      <div class="flow-card opens">
+        <div class="flow-card-label">Sábio abre</div>
+        <p class="flow-card-text">Nomeia o problema com precisão. O leitor se reconhece antes de qualquer oferta. Gera confiança imediata por diagnóstico.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-card closes">
+        <div class="flow-card-label">Mago fecha</div>
+        <p class="flow-card-text">Mostra o contraste antes × depois. A operação parece transformada. O resultado parece improvável — mas concreto e crível.</p>
+      </div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-card opens">
+        <div class="flow-card-label">Exemplo no anúncio</div>
+        <p class="flow-card-text">"Você ainda manda PDF pelo WhatsApp para confirmar pedido?"</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-card closes">
+        <div class="flow-card-label">Exemplo no anúncio</div>
+        <p class="flow-card-text">"Com a Vesti, seus clientes fazem o pedido direto na plataforma. Você recebe confirmado, sem precisar atender ninguém."</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- TOM DE VOZ -->
+  <section id="tom">
+    <p class="section-eyebrow">Tom de voz</p>
+    <h2 class="section-title">Como a Vesti fala</h2>
+    <p class="section-intro">Frase curta com peso real. Diagnóstico antes de solução. Resultado concreto, sem superlativo. A Vesti nunca explica o óbvio para quem já entende o negócio.</p>
+
+    <div class="voice-grid">
+      <div class="voice-card yes">
+        <div class="voice-header"><span class="voice-dot"></span> Fala assim</div>
+        <div class="voice-item">Direto e específico ao setor</div>
+        <div class="voice-item">Confia no conhecimento do cliente</div>
+        <div class="voice-item">Resultado concreto, sem exagero</div>
+        <div class="voice-item">Diagnóstico antes de solução</div>
+        <div class="voice-item">Frase curta, peso real</div>
+        <div class="voice-item">Transforma dado em insight</div>
+        <div class="voice-item">Fala de igual para igual</div>
+      </div>
+      <div class="voice-card no">
+        <div class="voice-header"><span class="voice-dot"></span> Nunca fala assim</div>
+        <div class="voice-item">"Solução inovadora e disruptiva"</div>
+        <div class="voice-item">Jargão vago de startup</div>
+        <div class="voice-item">Superlativo sem prova</div>
+        <div class="voice-item">Tom animado e exclamativo</div>
+        <div class="voice-item">Promessa genérica de crescimento</div>
+        <div class="voice-item">Explicar o óbvio para o cliente</div>
+        <div class="voice-item">Elogiar sem embasamento</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- TAGLINES -->
+  <section id="taglines">
+    <p class="section-eyebrow">Taglines e manchetes</p>
+    <h2 class="section-title">Copy aprovado por contexto</h2>
+    <p class="section-intro">Cada linha foi desenvolvida para um contexto específico. Não são intercambiáveis — cada uma carrega o peso certo para o momento em que aparece.</p>
+
+    <div class="tagline-stack">
+      <div class="tagline-item">
+        <div class="tagline-ctx">Tagline principal</div>
+        <div class="tagline-copy">Tecnologia que entende a moda por dentro.</div>
+      </div>
+      <div class="tagline-item">
+        <div class="tagline-ctx">Ênfase no Mago</div>
+        <div class="tagline-copy">O que parecia impossível de controlar, agora roda sozinho.</div>
+      </div>
+      <div class="tagline-item">
+        <div class="tagline-ctx">Ênfase no Sábio</div>
+        <div class="tagline-copy">Construída por quem conhece o chão de fábrica.</div>
+      </div>
+      <div class="tagline-item">
+        <div class="tagline-ctx">Hero headline</div>
+        <div class="tagline-copy">Venda para seus clientes sem depender de ligação, planilha ou WhatsApp.</div>
+      </div>
+      <div class="tagline-item">
+        <div class="tagline-ctx">Subtítulo hero</div>
+        <div class="tagline-copy">E-commerce B2B e inteligência artificial integrados — para quem produz moda e quer vender com mais controle e menos esforço.</div>
+      </div>
+      <div class="tagline-item">
+        <div class="tagline-ctx">CTA final</div>
+        <div class="tagline-copy">Sua operação pode ser mais inteligente do que é hoje. Fale com um especialista e descubra o que está travando o seu crescimento.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- PRODUTOS -->
+  <section id="produtos">
+    <p class="section-eyebrow">Linguagem por produto</p>
+    <h2 class="section-title">Como cada módulo é apresentado</h2>
+    <p class="section-intro">Cada produto tem uma frase de posicionamento, uma entrega de benefício e um formato padrão: definição em uma linha, funcionalidades, fechamento em resultado concreto.</p>
+
+    <div class="product-row">
+      <div class="product-tag">E-commerce B2B</div>
+      <div class="product-copy">
+        Sua vitrine digital para o atacado. Pedidos confirmados, catálogo sempre atualizado, sem depender de planilha ou WhatsApp.
+        <span>Tom Mago: o atacado que antes era caótico agora funciona sozinho.</span>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-tag">IA / Oráculo</div>
+      <div class="product-copy">
+        Inteligência que lê seus dados e antecipa decisões. Não é relatório — é diagnóstico.
+        <span>Tom Sábio: nomeia o problema (relatório não ajuda) antes de entregar a solução.</span>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-tag">Seção de problemas</div>
+      <div class="product-copy">
+        Pedido perdido no WhatsApp. Cliente sem histórico. A Vesti foi construída para resolver exatamente isso.
+        <span>Tom Sábio puro: diagnóstico preciso, reconhecimento imediato, zero exagero.</span>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-tag">Prova social</div>
+      <div class="product-copy">
+        O que muda quando a operação passa a funcionar com inteligência. Confecções que usam a Vesti não voltam para o modelo anterior.
+        <span>Tom Mago: o antes × depois está implícito no "não voltam".</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- VOCABULÁRIO -->
+  <section id="vocabulário">
+    <p class="section-eyebrow">Banco de palavras</p>
+    <h2 class="section-title">O que pertence à Vesti</h2>
+    <p class="section-intro">Expressões que constroem identidade verbal consistente. Usar com frequência — em anúncios, site, materiais de venda e comunicação interna.</p>
+
+    <div class="vocab-grid" style="margin-bottom: 2rem;">
+      <div class="vocab-item">entende por dentro</div>
+      <div class="vocab-item">inteligência que antecipa</div>
+      <div class="vocab-item">operação que roda sozinha</div>
+      <div class="vocab-item">diagnóstico preciso</div>
+      <div class="vocab-item">construída para confecções</div>
+      <div class="vocab-item">transforma dado em decisão</div>
+      <div class="vocab-item">antes × depois</div>
+      <div class="vocab-item">vitrine digital para o atacado</div>
+      <div class="vocab-item">catálogo vivo</div>
+      <div class="vocab-item">sem depender de WhatsApp</div>
+      <div class="vocab-item">pedido confirmado na plataforma</div>
+      <div class="vocab-item">histórico de cada cliente</div>
+    </div>
+
+    <p class="section-eyebrow" style="margin-bottom: 1rem;">Palavras proibidas</p>
+    <div class="taboo-grid">
+      <div class="taboo-item">
+        <span class="taboo-word">tecnologia</span>
+        <span class="taboo-reason">Genérico demais. Substituir por "plataforma", "ferramenta feita para o atacado".</span>
+      </div>
+      <div class="taboo-item">
+        <span class="taboo-word">inteligência artificial</span>
+        <span class="taboo-reason">Buzzword. Usar "diagnóstico", "antecipa decisões", "lê seus dados".</span>
+      </div>
+      <div class="taboo-item">
+        <span class="taboo-word">soluções</span>
+        <span class="taboo-reason">Vago e corporativo. Nomear o problema específico que a Vesti resolve.</span>
+      </div>
+      <div class="taboo-item">
+        <span class="taboo-word">oferece</span>
+        <span class="taboo-reason">Passivo demais. Usar verbos de ação: "resolve", "organiza", "antecipa".</span>
+      </div>
+      <div class="taboo-item">
+        <span class="taboo-word">Oráculo</span>
+        <span class="taboo-reason">Nome interno. Nunca usar em comunicação externa com o cliente.</span>
+      </div>
+      <div class="taboo-item">
+        <span class="taboo-word">marketplace</span>
+        <span class="taboo-reason">Posicionamento errado. A VestiShop não é um marketplace.</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-title">Vesti — Identidade Verbal Interna</p>
+    <p class="footer-url">vesti.com.br</p>
+  </div>
+</footer>
+
+<script>
+  const dots = document.querySelectorAll('.nav-dot');
+  const sections = document.querySelectorAll('main section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        dots.forEach(d => {
+          d.classList.toggle('active', d.dataset.target === id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
